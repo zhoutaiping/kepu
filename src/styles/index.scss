@@ -4,7 +4,7 @@
 @import './element-ui.scss';
 @import './sidebar.scss';
 @import './btn.scss';
-
+// @import './element-variables.scss';
 body {
   height: 100%;
   -moz-osx-font-smoothing: grayscale;
@@ -188,4 +188,39 @@ aside {
 
 .multiselect--active {
   z-index: 1000 !important;
+}
+
+
+.ant-btn-primary {
+  background-color: $color-primary !important;
+  border-color: $color-primary !important;
+}
+
+.ant-popover {
+  z-index: 2500 !important;
+}
+
+.success-text {
+  color:$color-primary;
+}
+.error-text {
+  color:#FF0000;
+}
+
+.color--primary{
+  color: $color-primary !important;
+}
+
+.color--red {
+  color:#FF0000;
+}
+
+.color--purple {
+  color:purple;
+}
+
+.input-number {
+  .el-input__inner {
+    text-align: left !important;
+  }
 }

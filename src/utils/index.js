@@ -345,3 +345,7 @@ export function removeClass(ele, cls) {
     ele.className = ele.className.replace(reg, ' ')
   }
 }
+
+export function isDef(value) {
+  return value !== undefined && value !== null
+}

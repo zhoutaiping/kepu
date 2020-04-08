@@ -1,5 +1,10 @@
 <template>
-  <div id="tags-view-container" class="tags-view-container">
+  <div
+    id="tags-view-container"
+    :class="[
+      {'tag-box-shadow':shadow},'tags-view-container'
+    ]"
+  >
     <scroll-pane ref="scrollPane" class="tags-view-wrapper">
       <router-link
         v-for="tag in visitedViews"
@@ -28,9 +33,14 @@
 <script>
 import ScrollPane from './ScrollPane'
 import path from 'path'
-
 export default {
   components: { ScrollPane },
+  props: {
+    shadow: {
+      type: Boolean,
+      default: () => true
+    }
+  },
   data() {
     return {
       visible: false,
@@ -195,12 +205,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.tag-box-shadow {
+  border-bottom: 1px solid #d8dce5;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .12), 0 0 3px 0 rgba(0, 0, 0, .04);
+}
 .tags-view-container {
   height: 34px;
   width: 100%;
   background: #fff;
-  border-bottom: 1px solid #d8dce5;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .12), 0 0 3px 0 rgba(0, 0, 0, .04);
+
   .tags-view-wrapper {
     .tags-view-item {
       display: inline-block;

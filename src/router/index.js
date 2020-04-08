@@ -4,13 +4,13 @@ import Router from 'vue-router'
 Vue.use(Router)
 
 /* Layout */
-import Layout from '@/layout'
+import BasicLayout from '@/layout/BasicLayout'
 
 /* Router Modules */
-import componentsRouter from './modules/components'
-import chartsRouter from './modules/charts'
-import tableRouter from './modules/table'
-import nestedRouter from './modules/nested'
+// import componentsRouter from './modules/components'
+// import chartsRouter from './modules/charts'
+// import tableRouter from './modules/table'
+// import nestedRouter from './modules/nested'
 
 /**
  * Note: sub-menu only appear when route children.length >= 1
@@ -61,17 +61,19 @@ export const constantRoutes = [
   },
   {
     path: '/',
-    component: Layout,
+    component: BasicLayout,
     redirect: '/dashboard',
     children: [
       {
         path: 'dashboard',
         component: () => import('@/views/dashboard/index'),
         name: 'Dashboard',
-        meta: { title: 'Dashboard', icon: 'dashboard', affix: true }
+        hidden: true,
+        meta: { title: '首页', icon: 'dashboard', affix: true }
       }
     ]
   }
+
 ]
 
 /**
@@ -79,12 +81,97 @@ export const constantRoutes = [
  * the routes that need to be dynamically loaded based on user roles
  */
 export const asyncRoutes = [
+  {
+    path: '/ruddertitle',
+    component: BasicLayout,
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/ruddertitle/index'),
+        name: 'ruddertitle',
+        meta: { title: '头衔管理', icon: 'icon-', noCache: true }
+      }
+    ]
+  },
+  {
+    path: '/article',
+    component: BasicLayout,
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/article/index'),
+        name: 'article',
+        meta: { title: '文章管理', icon: 'education', noCache: true }
+      }
+    ]
+  },
+  {
+    path: '/product',
+    component: BasicLayout,
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/product/index'),
+        name: 'product',
+        meta: { title: '商品管理', icon: 'shopping', noCache: true }
+      }
+    ]
+  },
+  {
+    path: '/hallRelation',
+    component: BasicLayout,
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/hallRelation/index'),
+        name: 'hallRelation',
+        meta: { title: '关系图', icon: 'tree', noCache: true }
+      }
+    ]
+  },
+  {
+    path: '/member',
+    component: BasicLayout,
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/member/index'),
+        name: 'member',
+        meta: { title: '会员管理', icon: 'user', noCache: true }
+      }
+    ]
+  },
+  {
+    path: '/Shop',
+    component: BasicLayout,
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/Shop/index'),
+        name: 'Shop',
+        meta: { title: '店铺有效期管理', icon: 'dianpu', noCache: true }
+      }
+    ]
+  },
+  {
+    path: '/icon',
+    component: BasicLayout,
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/icons/index'),
+        name: 'Icons',
+        meta: { title: 'Icons', icon: 'icon', noCache: true }
+      }
+    ]
+  },
+
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]
 
 const createRouter = () => new Router({
-  // mode: 'history', // require service support
+  mode: 'history', // require service support
   scrollBehavior: () => ({ y: 0 }),
   routes: constantRoutes
 })
