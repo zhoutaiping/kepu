@@ -76,14 +76,14 @@ import {
   CascaderPanel,
   Loading,
   MessageBox,
-  Message,
+  // Message,
   Notification,
   Avatar,
   Drawer,
   Scrollbar
 } from 'element-ui'
 
-Vue.use(Message, { size: 'small' })
+// Vue.use(Message, { size: 'small' })
 Vue.use(Scrollbar, { size: 'small' })
 Vue.use(Avatar, { size: 'small' })
 Vue.use(Pagination, { size: 'small' })
