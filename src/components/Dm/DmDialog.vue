@@ -39,6 +39,7 @@
     :visible.sync="visible"
     :aside="aside"
     :width="width"
+    :modal="modal"
     :append-to-body="appendToBody"
     aside-type="top"
     @close="onClose"
@@ -55,11 +56,13 @@
     >
       <el-button
         :type="aside ? 'text' : 'default'"
+        size="mini"
         @click="handleClose"
       >取消</el-button>
       <el-button
         :loading="submitLoading"
         :type="aside ? 'text' : 'primary'"
+        size="mini"
         @click="handleSubmit"
       >{{ submitText }}</el-button>
     </div>
@@ -86,6 +89,10 @@ export default create({
       default: ''
     },
     footer: {
+      type: Boolean,
+      default: true
+    },
+    modal: {
       type: Boolean,
       default: true
     },

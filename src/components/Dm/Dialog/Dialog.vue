@@ -51,8 +51,8 @@
     }
 
     &__footer {
-      // border-top: 1px solid rgba(0, 0, 0, 0.1);
-      padding: 16px;
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
+      padding: 10px;
       overflow: hidden;
     }
   }
@@ -195,6 +195,7 @@
     :class="[{'is-aside': aside}, 'yd-dialog-aside--' + asideType, 'size--' + size]"
     :width="width"
     :close-on-click-modal="closeOnClickModal"
+    :modal="modal"
     :close-on-press-escape="closeOnPressEscape"
     :title="title"
     :append-to-body="appendToBody"
@@ -227,6 +228,10 @@ export default {
     title: {
       type: String,
       default: ''
+    },
+    modal: {
+      type: Boolean,
+      default: true
     },
     visible: Boolean,
     width: {

@@ -28,12 +28,16 @@
           </div>
         </div>
         <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item @click.native="$refs.editPassWord.handleOpen()">
+            <span style="display:block;">修改密码</span>
+          </el-dropdown-item>
           <el-dropdown-item divided @click.native="logout">
             <span style="display:block;">退出</span>
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </div>
+    <EditPassWord ref="editPassWord" />
   </div>
 </template>
 
@@ -41,11 +45,13 @@
 import { mapGetters } from 'vuex'
 import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
+import EditPassWord from './edit-password'
 export default {
   name: 'Navbar',
   components: {
     Breadcrumb,
-    Hamburger
+    Hamburger,
+    EditPassWord
   },
   props: {
     breadcrumb: {
@@ -76,7 +82,9 @@ export default {
       await this.$store.dispatch('user/logout')
       this.$router.push(`/login?redirect=${this.$route.fullPath}`)
     },
+    UpdatePassword() {
 
+    },
     change(id) {
       if (!id) return
       this.$store.dispatch('user/changeHallKey', id)

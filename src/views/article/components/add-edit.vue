@@ -345,7 +345,7 @@ export default {
     },
     async movieUpload(file, data) {
       const params = new FormData()
-      params.append('Content', file.raw)
+      params.append('video', file.raw)
       this.tabloading = true
       await this.$store.dispatch('system/UploadVideo', params).then(res => {
         if (res) {

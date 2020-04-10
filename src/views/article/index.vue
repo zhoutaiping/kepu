@@ -4,8 +4,8 @@
 <template>
   <PageHeader title="文章管理">
     <a-button type="primary" style="margin:10px 0 0;" @click="$refs.addEdit.handleOpen()">添 加</a-button>
-    <a-button type="primary" style="margin:10px 0 0;" @click="$refs.tagDialog.handleOpen()">添加文字标签</a-button>
-    <a-button type="primary" style="margin:10px 0 0;" @click="$refs.typeDialog.handleOpen()">添加文字分类</a-button>
+    <a-button v-if="false" type="primary" style="margin:10px 0 0;" @click="$refs.tagDialog.handleOpen()">添加文字标签</a-button>
+    <a-button v-if="false" type="primary" style="margin:10px 0 0;" @click="$refs.typeDialog.handleOpen()">添加文字分类</a-button>
     <a-button type="primary" style="margin:10px 0 0;" @click="initPage">刷 新</a-button>
     <DmData
       ref="DmData"
@@ -30,8 +30,8 @@
                 >
               </div>
               <div v-else-if="item.prop === 'Status'">
-                <span v-if="Number(scope.row.Status) ===0" class="error-text">已下架</span>
-                <span v-else-if="Number(scope.row.Status) ===1" class="success-text">已上架</span>
+                <span v-if="Number(scope.row.Status) ===0" class="success-text">已上架</span>
+                <span v-else-if="Number(scope.row.Status) ===1" class="error-text">已下线</span>
               </div>
               <div v-else>
                 {{ formartValue(scope.row, item.prop) }}
@@ -44,10 +44,10 @@
               <el-divider direction="vertical" />
               <a class="success-text" @click="$refs.addEdit.handleOpen(scope.row, 'Edit')">编 辑</a>
               <el-divider direction="vertical" />
-              <!-- <template v-if="Number(scope.row.Status)===0">
+              <template v-if="false">
                 <a class="success-text" @click="EditStatus(scope.row, 1)">上 架</a>
-              </template> -->
-              <template v-if="Number(scope.row.Status)===1">
+              </template>
+              <template>
                 <a class="success-text" @click="EditStatus(scope.row, 2)">下 架</a>
               </template>
             </template>

@@ -2,7 +2,7 @@ import axios from 'axios'
 import Message from 'ant-design-vue/lib/message'
 import { uuid } from './uuid'
 import store from '@/store'
-import { getToken, removeToken } from '@/utils/auth'
+import { getToken } from '@/utils/auth'
 const service = axios.create({
   baseURL: '/java',
   timeout: 50000,
@@ -29,37 +29,18 @@ service.interceptors.request.use(
 // respone拦截器
 service.interceptors.response.use(
   response => {
-    const { status: statusCode, data: body } = response
-    const { status = 0, Data } = body
-    if (status) {
-      const message = Data.Message
-
-      if (statusCode === 200) {
-        if (status >= 0 && message !== '') {
-          if (parseInt(status, 10) !== 1) {
-            if (status === 16149) {
-              localStorage.removeItem('userInfo')
-              localStorage.clear()
-              removeToken()
-              setTimeout(() => { window.location.href = '/login' }, 500)
-            } else {
-              const dataMessage = JSON.stringify(Data) === '[]' ? '' : Data
-              Message.warning(dataMessage || message)
-            }
-            return Promise.reject(message)
-          }
-        }
-      } else {
-        Message.error(message)
-        return Promise.reject(message)
-      }
+    const { data: body } = response
+    const { Code, Data } = body
+    const message = body.Message
+    if (Code !== 200) {
+      Message.error(message)
+      return Promise.reject(new Error(message || 'Error'))
+    } else {
+      return Data || body
     }
-
-    return Data || body
   },
   error => {
-    console.log('============', error)
-    Message.error(error)
+    Message.error(error.Message)
     return Promise.reject(error)
   }
 )
