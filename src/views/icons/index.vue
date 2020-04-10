@@ -1,9 +1,9 @@
 <template>
   <div class="icons-container">
-    <!-- <aside>
+    <aside>
       <a href="https://panjiachen.github.io/vue-element-admin-site/guide/advanced/icon.html" target="_blank">Add and use
       </a>
-    </aside> -->
+    </aside>
     <el-tabs type="border-card">
       <el-tab-pane label="Icons">
         <div class="grid">

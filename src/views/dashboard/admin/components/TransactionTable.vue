@@ -21,6 +21,7 @@
 </template>
 
 <script>
+import { transactionList } from '@/api/remote-search'
 
 export default {
   filters: {
@@ -45,13 +46,9 @@ export default {
   },
   methods: {
     fetchData() {
-      this.list = [[{
-        order_no: '@guid()',
-        timestamp: '',
-        username: '@name()',
-        price: '@float(1000, 15000, 0, 2)',
-        'status|1': ['success', 'pending']
-      }]]
+      transactionList().then(response => {
+        this.list = response.data.items.slice(0, 8)
+      })
     }
   }
 }

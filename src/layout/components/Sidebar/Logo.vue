@@ -1,5 +1,5 @@
 <template>
-  <div class="sidebar-logo-container" :class="{'collapse':collapse}" :style="{'background-color':theme}">
+  <div class="sidebar-logo-container" :class="{'collapse':collapse}">
     <transition name="sidebarLogoFade">
       <router-link v-if="collapse" key="collapse" class="sidebar-logo-link" to="/">
         <img v-if="logo" :src="logo" class="sidebar-logo">
@@ -14,7 +14,6 @@
 </template>
 
 <script>
-const defaultSettings = require('@/settings.js')
 export default {
   name: 'SidebarLogo',
   props: {
@@ -25,13 +24,8 @@ export default {
   },
   data() {
     return {
-      title: defaultSettings.title,
+      title: 'Vue Element Admin',
       logo: 'https://wpimg.wallstcn.com/69a1c46c-eb1c-4b46-8bd4-e9e686ef5251.png'
-    }
-  },
-  computed: {
-    theme() {
-      return this.$store.state.settings.theme
     }
   }
 }

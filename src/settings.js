@@ -1,5 +1,5 @@
 module.exports = {
-  title: 'KE PU XIAO TIAN SHI',
+  title: 'Vue Element Admin',
 
   /**
    * @type {boolean} true | false
@@ -11,7 +11,7 @@ module.exports = {
    * @type {boolean} true | false
    * @description Whether need tagsView
    */
-  tagsView: false,
+  tagsView: true,
 
   /**
    * @type {boolean} true | false
