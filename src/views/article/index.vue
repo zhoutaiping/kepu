@@ -44,9 +44,9 @@
               <el-divider direction="vertical" />
               <a class="success-text" @click="$refs.addEdit.handleOpen(scope.row, 'Edit')">编 辑</a>
               <el-divider direction="vertical" />
-              <template v-if="Number(scope.row.Status)===0">
+              <!-- <template v-if="Number(scope.row.Status)===0">
                 <a class="success-text" @click="EditStatus(scope.row, 1)">上 架</a>
-              </template>
+              </template> -->
               <template v-if="Number(scope.row.Status)===1">
                 <a class="success-text" @click="EditStatus(scope.row, 2)">下 架</a>
               </template>

@@ -33,7 +33,7 @@
         <el-form-item label-width="0">
           <DmTable>
             <el-table :data="ArticleCategoryList">
-              <el-table-column type="index" width="55" />
+              <el-table-column type="index" label="序号" width="55" />
               <el-table-column label="分类名称" prop="Name" />
             </el-table>
           </DmTable>
