@@ -11,10 +11,10 @@
 </style>
 <template>
   <PageHeader :show-title="false" title="">
-    <el-radio-group v-model="bindParams.articleType" @change="$refs.DmData.initPage()">
-      <el-radio-button :label="1">文 章</el-radio-button>
-      <el-radio-button :label="2">公 告</el-radio-button>
-    </el-radio-group>
+    <a-radio-group v-model="bindParams.articleType" :default-value="1" button-style="solid" @change="$refs.DmData.initPage()">
+      <a-radio-button :value="1">文 章</a-radio-button>
+      <a-radio-button :value="2">公 告</a-radio-button>
+    </a-radio-group>
     <DmData
       ref="DmData"
       style="margin:10px 0 0;"
