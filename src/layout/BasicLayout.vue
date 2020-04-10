@@ -4,7 +4,7 @@
     <sidebar class="sidebar-container" />
     <div :class="{hasTagsView:needTagsView}" class="main-container">
       <div :class="{'fixed-header':fixedHeader}">
-        <navbar />
+        <navbar :breadcrumb="false" />
         <tags-view v-if="needTagsView" />
       </div>
       <app-main />
@@ -22,7 +22,7 @@ import ResizeMixin from './mixin/ResizeHandler'
 import { mapState } from 'vuex'
 
 export default {
-  name: 'Layout',
+  name: 'BasicLayout',
   components: {
     AppMain,
     Navbar,

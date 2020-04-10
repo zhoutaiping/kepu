@@ -29,13 +29,34 @@ module.exports = {
   assetsDir: 'static',
   lintOnSave: process.env.NODE_ENV === 'development',
   productionSourceMap: false,
+  css: {
+    loaderOptions: {
+      sass: {
+        data: `@import "./src/styles/variables.scss";`
+      },
+      less: {
+        javascriptEnabled: true
+      }
+    }
+  },
   devServer: {
     port: port,
     overlay: {
       warnings: false,
       errors: true
     },
-    before: require('./mock/mock-server.js')
+    proxy: {
+      // change xxx-api/login => mock/login
+      // detail: https://cli.vuejs.org/config/#devserver-proxy
+      '^/api': {
+        target: `http://tianshicmsapi.getfitvip.com`,
+        changeOrigin: true
+      },
+      '^/java': {
+        target: `http://tianshi.getfitvip.com`,
+        changeOrigin: true
+      }
+    }
   },
   configureWebpack: {
     // provide the app's title in webpack's name field, so that

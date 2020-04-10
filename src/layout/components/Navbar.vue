@@ -2,33 +2,33 @@
   <div class="navbar">
     <hamburger id="hamburger-container" :is-active="sidebar.opened" class="hamburger-container" @toggleClick="toggleSideBar" />
 
-    <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
+    <breadcrumb v-show="breadcrumb" id="breadcrumb-container" class="breadcrumb-container" />
+    <div class="hall_list">
+      <span style="margin:0 10px 0 0;">店铺</span>
+      <el-dropdown
+        trigger="click"
+        placement="bottom-start"
+      >
+        <el-button icon="el-icon-menu">{{ menuText() }} <i class="el-icon-caret-bottom el-icon--right" /></el-button>
+        <el-dropdown-menu v-if="hall_list.length>1" slot="dropdown">
+          <el-dropdown-item v-for="(item,index) in hall_list" :key="index" :divided="index!==0">
+            <div class="dropdown-item-box" @click="change(item.Id)">{{ item.HallName }}</div>
+          </el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
+    </div>
 
     <div class="right-menu">
-      <template v-if="device!=='mobile'">
-        <!-- <search id="header-search" class="right-menu-item" /> -->
-
-        <error-log class="errLog-container right-menu-item hover-effect" />
-
-        <!-- <screenfull id="screenfull" class="right-menu-item hover-effect" />
-
-        <el-tooltip content="Global Size" effect="dark" placement="bottom">
-          <size-select id="size-select" class="right-menu-item hover-effect" />
-        </el-tooltip> -->
-
-      </template>
-
       <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="click">
         <div class="avatar-wrapper">
-          <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar">
+          <!-- <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar"> -->
+          <el-avatar size="medium" :src="th+'?imageView2/1/w/80/h/80'" />
+          {{ name }}
           <i class="el-icon-caret-bottom" />
         </div>
         <el-dropdown-menu slot="dropdown">
-          <router-link to="/">
-            <el-dropdown-item>首页</el-dropdown-item>
-          </router-link>
           <el-dropdown-item divided @click.native="logout">
-            <span style="display:block;">退 出</span>
+            <span style="display:block;">退出</span>
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
@@ -40,19 +40,31 @@
 import { mapGetters } from 'vuex'
 import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
-import ErrorLog from '@/components/ErrorLog'
-
 export default {
+  name: 'Navbar',
   components: {
     Breadcrumb,
-    Hamburger,
-    ErrorLog
+    Hamburger
+  },
+  props: {
+    breadcrumb: {
+      type: Boolean,
+      default: true
+    }
+  },
+  data() {
+    return {
+      th: 'https://cn.bing.com/th?id=OIP.9UWHeAx9qb1MCnUlyQy5zQAAAA&pid=Api&rs=1'
+    }
   },
   computed: {
     ...mapGetters([
       'sidebar',
       'avatar',
-      'device'
+      'name',
+      'device',
+      'hall_list',
+      'hall_key'
     ])
   },
   methods: {
@@ -62,6 +74,21 @@ export default {
     async logout() {
       await this.$store.dispatch('user/logout')
       this.$router.push(`/login?redirect=${this.$route.fullPath}`)
+    },
+
+    change(id) {
+      if (!id) return
+      this.$store.dispatch('user/changeHallKey', id)
+    },
+    menuText() {
+      const find = this.hall_list.find(i => {
+        return i.Id === this.hall_key
+      })
+      let HallName = ''
+      if (find) {
+        HallName = find.HallName
+      }
+      return HallName
     }
   }
 }
@@ -91,7 +118,13 @@ export default {
   .breadcrumb-container {
     float: left;
   }
-
+  .hall_list {
+    float: left;
+    width: 300px;
+    height: 100%;
+    line-height: 50px;
+    font-size: 16px;
+  }
   .errLog-container {
     display: inline-block;
     vertical-align: top;
