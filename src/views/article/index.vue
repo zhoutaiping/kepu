@@ -30,8 +30,8 @@
                 >
               </div>
               <div v-else-if="item.prop === 'Status'">
-                <span v-if="scope.row.Status ===1" class="error-text">已下架</span>
-                <span v-else class="success-text">已上架</span>
+                <span v-if="Number(scope.row.Status) ===0" class="error-text">已下架</span>
+                <span v-else-if="Number(scope.row.Status) ===1" class="success-text">已上架</span>
               </div>
               <div v-else>
                 {{ formartValue(scope.row, item.prop) }}
@@ -40,15 +40,15 @@
           </el-table-column>
           <el-table-column label="操作" width="250">
             <template slot-scope="scope">
-              <a @click="$refs.infoDialog.handleOpen(scope.row)">预 览</a>
+              <a class="success-text" @click="$refs.infoDialog.handleOpen(scope.row)">预 览</a>
               <el-divider direction="vertical" />
-              <a @click="$refs.addEdit.handleOpen(scope.row, 'Edit')">编 辑</a>
+              <a class="success-text" @click="$refs.addEdit.handleOpen(scope.row, 'Edit')">编 辑</a>
               <el-divider direction="vertical" />
               <template v-if="Number(scope.row.Status)===0">
-                <a @click="EditStatus(scope.row, 1)">上 架</a>
+                <a class="success-text" @click="EditStatus(scope.row, 1)">上 架</a>
               </template>
               <template v-if="Number(scope.row.Status)===1">
-                <a @click="EditStatus(scope.row, 2)">下 架</a>
+                <a class="success-text" @click="EditStatus(scope.row, 2)">下 架</a>
               </template>
             </template>
           </el-table-column>

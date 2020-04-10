@@ -21,10 +21,11 @@
     <div class="right-menu">
       <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="click">
         <div class="avatar-wrapper">
-          <!-- <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar"> -->
           <el-avatar size="medium" :src="th+'?imageView2/1/w/80/h/80'" />
-          {{ name }}
-          <i class="el-icon-caret-bottom" />
+          <div style="display: inline-block; position: relative; top: -10px;">
+            {{ name }}
+            <i class="el-icon-caret-bottom" />
+          </div>
         </div>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item divided @click.native="logout">
@@ -54,7 +55,7 @@ export default {
   },
   data() {
     return {
-      th: 'https://cn.bing.com/th?id=OIP.9UWHeAx9qb1MCnUlyQy5zQAAAA&pid=Api&rs=1'
+      th: 'https://static.getfitvip.com/kepulogo.png'
     }
   },
   computed: {

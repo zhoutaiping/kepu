@@ -10,7 +10,7 @@
 }
 </style>
 <template>
-  <PageHeader :show-title="false" title="关系图">
+  <PageHeader title="关系图">
     <DmAlert class="mt">
       <i class="el-icon-info color--primary" style="margin: 0 5px 0 0;" />所示为店铺网络发展的实时动态图，为方便大家查看会根据店铺粉丝数量做自动展示调整，具体规则如下：
       <div>

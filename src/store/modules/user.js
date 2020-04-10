@@ -103,6 +103,12 @@ const actions = {
     })
   },
 
+  changeHallKey({ commit, dispatch }, id) {
+    return new Promise(resolve => {
+      commit('HALL_KEY', id || '')
+      resolve()
+    })
+  },
   // dynamically modify permissions
   changeRoles({ commit, dispatch }, role) {
     return new Promise(async resolve => {

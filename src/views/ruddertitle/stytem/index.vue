@@ -28,13 +28,13 @@
               </div>
             </template>
           </el-table-column>
-          <el-table-column label="操作" width="150">
+          <!-- <el-table-column label="操作" width="150">
             <template slot-scope="scope">
-              <a @click="$emit('rudderRank',scope.row)">分 配</a>
+              <a class="success-text" @click="$emit('rudderRank',scope.row)">分 配</a>
               <el-divider direction="vertical" />
-              <a @click="delete(scope.row, scope.$index)">删 除</a>
+              <a class="success-text" @click="delete(scope.row, scope.$index)">删 除</a>
             </template>
-          </el-table-column>
+          </el-table-column> -->
         </el-table>
       </DmTable>
     </DmData>

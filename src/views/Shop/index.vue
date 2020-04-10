@@ -27,7 +27,7 @@
           </el-table-column>
           <el-table-column label="操作" width="100">
             <template slot-scope="scope">
-              <a @click="$refs.edit.handleOpen(scope.row)">店铺编辑</a>
+              <a class="success-text" @click="$refs.edit.handleOpen(scope.row)">店铺编辑</a>
             </template>
           </el-table-column>
         </el-table>
@@ -51,7 +51,7 @@ export default {
         applyStatus: 1
       },
       column: [
-        { label: '店铺Logo', prop: 'ApplyLogo' },
+        // { label: '店铺Logo', prop: 'ApplyLogo' },
         { label: '店铺名', prop: 'ApplyProjectName' },
         { label: '店铺管理员', prop: 'ApplyName' },
         { label: '店铺联系手机号', prop: 'ApplyPhone' },
@@ -90,8 +90,8 @@ export default {
     formartValue(data, prop) {
       let str = ''
       switch (prop) {
-        case 'status':
-          str = '成功'
+        case 'ProjectApplyStatus':
+          str = Number(data[prop]) === 1 ? '正常' : '其他'
           break
         default:
           str = data[prop]

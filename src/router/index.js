@@ -71,6 +71,7 @@ export const constantRoutes = [
   },
   {
     path: '/icon',
+    hidden: true,
     component: BasicLayout,
     children: [
       {
@@ -96,7 +97,7 @@ export const asyncRoutes = [
         path: 'index',
         component: () => import('@/views/ruddertitle/index'),
         name: 'ruddertitle',
-        meta: { title: '头衔管理', icon: 'icon-', noCache: true }
+        meta: { title: '头衔列表', icon: 'icon-', noCache: true }
       }
     ]
   },
@@ -126,7 +127,7 @@ export const asyncRoutes = [
   },
   {
     path: '/statistics',
-    component: () => import('@/views/statistics/index'),
+    component: BasicLayout,
     redirect: '/statistics/article',
     meta: { title: '统计管理', icon: 'tree', noCache: true },
     children: [

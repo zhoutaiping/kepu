@@ -43,7 +43,7 @@
                     cancel-text="否"
                     @confirm="deleteRow(scope.row)"
                   >
-                    <a>删 除</a>
+                    <a class="success-text">删 除</a>
                   </a-popconfirm>
                 </template>
               </el-table-column>

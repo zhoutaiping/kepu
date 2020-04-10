@@ -181,7 +181,7 @@ export default {
         Rule: [{ required: true, message: '请输入商品规格' }],
         Catty: [],
         MediaPrcie: [{ required: true, message: '请输入售价' }],
-        ReferencePrice: [{ required: true, message: '请输入售价' }],
+        ReferencePrice: [],
         GoodsType: [],
         Content: [],
         logo: [],

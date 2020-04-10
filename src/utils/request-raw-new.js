@@ -5,7 +5,7 @@ import store from '@/store'
 import { getToken, removeToken } from '@/utils/auth'
 const service = axios.create({
   baseURL: '/api',
-  timeout: 15000,
+  timeout: 50000,
   headers: {
     'Request-Id': uuid(),
     'Content-Type': 'application/json'

@@ -37,7 +37,7 @@
                 cancel-text="否"
                 @confirm="cacel(scope.row)"
               >
-                <a>取消会员</a>
+                <a class="success-text">取消会员</a>
               </a-popconfirm>
             </template>
           </el-table-column>

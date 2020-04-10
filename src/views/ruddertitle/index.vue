@@ -6,16 +6,15 @@
 <template>
   <div>
     <SystemPage class="mt" @rudderRank="rudderRank" />
-    <HallPage ref="hallPage" class="mt" />
+    <!-- <HallPage ref="hallPage" class="mt" /> -->
     <RudderRankAnother ref="fudderRankAnother" @sucess="success" />
   </div>
 </template>
 <script>
 import SystemPage from './stytem/index'
-import HallPage from './hall/index'
 import RudderRankAnother from './components/rudder-rank-another'
 export default {
-  components: { SystemPage, HallPage, RudderRankAnother },
+  components: { SystemPage, RudderRankAnother },
   methods: {
     success(page = '') {
       if (page !== '' && this.$refs[page]) this.$refs[page].initPage()
