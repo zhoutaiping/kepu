@@ -53,10 +53,8 @@
 </template>
 
 <script>
-import PanThumb from '@/components/PanThumb'
 
 export default {
-  components: { PanThumb },
   props: {
     user: {
       type: Object,
