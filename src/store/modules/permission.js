@@ -52,9 +52,8 @@ const actions = {
       // 32f9c99c52ad4f0ab910f0b59de22018
       let userMenu = asyncRoutes
       if (getToken() === '32f9c99c52ad4f0ab910f0b59de22018') {
-      //
+        userMenu = userMenu.concat(admiinRouter)
       }
-      userMenu = userMenu.concat(admiinRouter)
       commit('SET_ROUTES', userMenu)
       resolve(userMenu)
     })

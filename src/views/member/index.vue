@@ -14,7 +14,7 @@
     <DmData ref="DmData" style="margin:10px 0 0;" @init="fetchList({hallId:hall_key})">
       <DmTable :loading="loading">
         <el-table :data="list">
-          <el-table-column type="index" width="55" />
+          <el-table-column type="index" label="序号" width="55" />
           <el-table-column v-for="(item, index) in column" :key="index" :label="item.label" :width="item.width">
             <template slot-scope="scope">
               <div v-if="item.prop === 'UserUrl'">
@@ -60,7 +60,7 @@ export default {
         name: ''
       },
       column: [
-        { label: '头像', prop: 'UserUrl' },
+        { label: '头像', prop: 'UserUrl', width: 100 },
         { label: '会员名称', prop: 'UserName' },
         { label: '注册时间', prop: 'CreateTime' }
       ]

@@ -24,12 +24,12 @@
           <el-form-item label="标题" prop="Title">
             <el-input v-model="form.Title" placeholder="请输入标题" class="form-input" />
           </el-form-item>
-          <el-form-item label="文章分类" prop="ArticleCategoryId">
+          <el-form-item v-show="false" label="文章分类" prop="ArticleCategoryId">
             <el-select v-model="form.ArticleCategoryId" placeholder="" class="form-input" @change="(val)=>{return form.Type = val}">
               <el-option v-for="item in ArticleCategoryList" :key="item.Id" :label="item.Name" :value="item.Id" />
             </el-select>
           </el-form-item>
-          <el-form-item label="文章分类" prop="LabelList">
+          <el-form-item v-show="false" label="文章分类" prop="LabelList">
             <el-select v-model="form.LabelList" multiple placeholder="" class="form-input">
               <el-option v-for="item in ArticleLabelList" :key="item.ArticleLableId" :label="item.ArticleLableName" :value="item.ArticleLableId" />
             </el-select>
