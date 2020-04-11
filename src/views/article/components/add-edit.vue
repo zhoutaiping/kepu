@@ -34,7 +34,7 @@
               <el-option v-for="item in ArticleLabelList" :key="item.ArticleLableId" :label="item.ArticleLableName" :value="item.ArticleLableId" />
             </el-select>
           </el-form-item>
-          <el-form-item label="文章Logo" prop="ArticleLogo">
+          <el-form-item label="文章Logo" prop="ArticleLogo" class="form-item">
             <template v-if="form.ArticleLogo">
               <div class="form-input">
                 <img :src="form.ArticleLogo" width="60" height="60">
@@ -179,7 +179,7 @@
                       </div>
                     </template>
                   </div>
-                  <div v-else>
+                  <div v-else-if="Number(scope.row.ContentType) === 3">
                     <template v-if="scope.row.Content">
                       <div>
                         <svg-icon icon-class="shipin" style="width:48;height:48;" />
@@ -225,6 +225,25 @@
                         </div>
                       </div>
                     </template>
+                  </div>
+                  <div v-if="Number(scope.row.ContentType) === 4">
+                    <el-input
+                      v-model="scope.row.Content"
+                      type="textarea"
+                      :rows="2"
+                      placeholder="视频链接"
+                      class="upload-demo"
+                    />
+                    <div style="float:right;line-height:25px;">
+                      <a-popconfirm
+                        title="是否确认删除?"
+                        ok-text="是"
+                        cancel-text="否"
+                        @confirm="form.ArticleContentList.splice(scope.$index, 1)"
+                      >
+                        <a style="margin:0 20px;"><i class="el-icon-delete" /></a>
+                      </a-popconfirm>
+                    </div>
                   </div>
                 </template>
               </el-table-column>
@@ -275,9 +294,10 @@ export default {
         ArticleContentList: []
       },
       ContentType: [
+        { label: '添加文章', value: 1 },
         { label: '添加图片', value: 2 },
-        { label: '添加视频', value: 3 },
-        { label: '添加文章', value: 1 }
+        { label: '添加短视频', value: 3 },
+        { label: '添加长视频', value: 4 }
       ]
     }
   },
@@ -318,9 +338,6 @@ export default {
     },
 
     handlePreview(file) {
-    },
-    handleChange(file, fileList) {
-      console.log(file, fileList)
     },
     async logoUpload(file, fileList) {
       const params = new FormData()
@@ -379,7 +396,15 @@ export default {
       }
       this.$refs.form.validate(async(valid) => {
         if (valid) {
-          await this.Fetch.post(api, { ...this.form, hallId: this.hall_key }).then(res => {
+          const data = {
+            ...this.form
+          }
+          const ArticleContentList = data.ArticleContentList
+          ArticleContentList.forEach(i => {
+            if (i.ContentType === 4) i.ContentType = 3
+          })
+          data.ArticleContentList = ArticleContentList
+          await this.Fetch.post(api, { ...data, hallId: this.hall_key }).then(res => {
             this.Message('ACTION_SUCCESS')
             this.$emit('success')
             this.$refs.Dialog.handleClose()
