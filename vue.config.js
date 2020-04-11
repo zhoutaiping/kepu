@@ -57,7 +57,7 @@ module.exports = {
         changeOrigin: true
       },
       '^/java': {
-        target: `http://tianshi.getfitvip.com`,
+        target: `http://tianshicmsapi.getfitvip.com/`,
         changeOrigin: true
       }
     }
