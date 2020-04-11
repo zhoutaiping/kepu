@@ -348,6 +348,7 @@ export default {
       params.append('video', file.raw)
       this.tabloading = true
       await this.$store.dispatch('system/UploadVideo', params).then(res => {
+        console.log(res)
         if (res) {
           data.Content = res
           this.Message('ACTION_SUCCESS')

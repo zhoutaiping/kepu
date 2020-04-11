@@ -1,4 +1,5 @@
 import Fetch from '@/utils/fetch'
+import FetchImg from '@/utils/fetch_img'
 
 const state = {
   ArticleLabelList: [],
@@ -60,7 +61,7 @@ const actions = {
           'Content-Type': 'multipart/form-data'
         }
       }
-      Fetch.post('/Aboutapi/UploadVideo', params, config).then(res => {
+      FetchImg.post('/Image/UploadImage', params, config).then(res => {
         resolve(res)
       }).catch(e => {
         reject(e)

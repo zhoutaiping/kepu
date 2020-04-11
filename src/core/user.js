@@ -13,6 +13,7 @@ import './ui/index'
 
 import Fetch from '@/utils/fetch'
 import FetchJava from '@/utils/fetch_java'
+import FetchImg from '@/utils/fetch_img'
 import Message from '@/utils/message'
 // register global utility filters
 Object.keys(filters).forEach(key => {
@@ -20,5 +21,6 @@ Object.keys(filters).forEach(key => {
 })
 Vue.prototype.Fetch = Fetch
 Vue.prototype.FetchJava = FetchJava
+Vue.prototype.FetchImg = FetchImg
 Vue.config.productionTip = false
 Vue.prototype.Message = Message
