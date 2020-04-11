@@ -4,7 +4,7 @@ import { uuid } from './uuid'
 import store from '@/store'
 import { getToken } from '@/utils/auth'
 const service = axios.create({
-  baseURL: 'http://tianshiupload.getfitvip.com/baseApiTwo',
+  baseURL: '/baseApiTwo',
   timeout: 500000,
   headers: {
     'Request-Id': uuid(),

@@ -245,6 +245,7 @@ export default {
       submitLoading: false,
       tabloading: false,
       keyList: [],
+      movieList: [],
       API_ADD: '/Articleapi/AddArticle',
       API_Detail: '/Articleapi/GetArticleDetail',
       API_Update: '/Articleapi/UpdateArticle',
@@ -318,7 +319,9 @@ export default {
 
     handlePreview(file) {
     },
-
+    handleChange(file, fileList) {
+      console.log(file, fileList)
+    },
     async logoUpload(file, fileList) {
       const params = new FormData()
       params.append('ArticleLogo', file.raw)
