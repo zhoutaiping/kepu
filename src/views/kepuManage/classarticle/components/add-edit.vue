@@ -24,21 +24,9 @@
           <el-form-item label="标题" prop="Title">
             <el-input v-model="form.Title" placeholder="请输入标题" class="form-input" />
           </el-form-item>
-          <el-form-item label="会员可见" prop="IsMenberShow">
-            <el-switch
-              v-model="form.IsMenberShow"
-              :active-value="1"
-              :inactive-value="0"
-            />
-          </el-form-item>
-          <el-form-item v-show="false" label="文章分类" prop="ArticleCategoryId">
+          <el-form-item label="文章分类" prop="ArticleCategoryId">
             <el-select v-model="form.ArticleCategoryId" placeholder="" class="form-input" @change="(val)=>{return form.Type = val}">
-              <el-option v-for="item in ArticleCategoryList" :key="item.Id" :label="item.Name" :value="item.Id" />
-            </el-select>
-          </el-form-item>
-          <el-form-item v-show="false" label="文章分类" prop="LabelList">
-            <el-select v-model="form.LabelList" multiple placeholder="" class="form-input">
-              <el-option v-for="item in ArticleLabelList" :key="item.ArticleLableId" :label="item.ArticleLableName" :value="item.ArticleLableId" />
+              <el-option v-for="item in key_list" :key="item.Id" :label="item.Name" :value="item.Id" />
             </el-select>
           </el-form-item>
           <el-form-item label="文章Logo" prop="ArticleLogo" class="form-item">
@@ -272,7 +260,7 @@ export default {
       tabloading: false,
       keyList: [],
       movieList: [],
-      API_ADD: '/Articleapi/AddArticle',
+      API_ADD: '/Articleapi/AddArticlePay',
       API_Detail: '/Articleapi/GetArticleDetail',
       API_Update: '/Articleapi/UpdateArticle',
       defalut: {
@@ -311,9 +299,8 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'ArticleLabelList',
-      'ArticleCategoryList',
-      'hall_key'
+      'hall_key',
+      'key_list'
     ])
   },
   methods: {
@@ -326,7 +313,6 @@ export default {
       if (type !== 'Create') {
         this.GetArticleDetail(data)
       } else {
-        this.form.ArticleCategoryId = '2'
         this.form.LabelList = ['22222']
       }
     },
@@ -335,7 +321,6 @@ export default {
         const data = JSON.parse(JSON.stringify(res))
         data.LabelList = data.LabelList.map(i => { return i.ArticleLableId })
         this.form = Object.assign({}, data)
-        this.$set(this.form, 'IsMenberShow', data.IsMenberShow || 0)
       }).catch(e => {})
     },
 
@@ -377,7 +362,6 @@ export default {
       params.append('video', file.raw)
       this.tabloading = true
       await this.$store.dispatch('system/UploadVideo', params).then(res => {
-        console.log(res)
         if (res) {
           data.Content = res
           this.Message('ACTION_SUCCESS')

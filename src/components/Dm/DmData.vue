@@ -96,10 +96,15 @@ export default {
   methods: {
     handleInit() {
       const { page, per_page } = this.pagination
-      this.$emit('init', {
+      const data = {
         Page: page,
         PageSize: per_page
-      })
+      }
+      if (this.group) {
+        this.$emit('init', { ...data })
+      } else {
+        this.$emit('init', {})
+      }
     },
 
     getPagination() {
@@ -108,10 +113,11 @@ export default {
 
     getParams() {
       const { page, per_page } = this.pagination
-      return {
+      const data = {
         Page: page,
         PageSize: per_page
       }
+      return this.group ? data : {}
     },
 
     init(options) {

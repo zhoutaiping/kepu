@@ -18,7 +18,7 @@
           <el-table-column v-for="(item, index) in column" :key="index" :label="item.label" :width="item.width" show-overflow-tooltip>
             <template slot-scope="scope">
               <div v-if="item.prop === 'ApplyLogo'">
-                <img v-show="scope.row.ApplyLogo" :src="scope.row.ApplyLogo" height="60" width="60">
+                <img v-show="scope.row.ApplyLogo" :src="scope.row.ApplyLogo" height="40" width="40">
               </div>
               <div v-else>
                 {{ formartValue(scope.row, item.prop) }}
@@ -51,12 +51,12 @@ export default {
         applyStatus: 1
       },
       column: [
-        // { label: '店铺Logo', prop: 'ApplyLogo' },
+        { label: '店铺Logo', prop: 'ApplyLogo' },
         { label: '店铺名', prop: 'ApplyProjectName' },
         { label: '店铺管理员', prop: 'ApplyName' },
         { label: '店铺联系手机号', prop: 'ApplyPhone' },
         { label: '店铺联系微信号', prop: 'ApplyWxCode' },
-        { label: '店铺状态', prop: 'ProjectApplyStatus' },
+        // { label: '店铺状态', prop: 'ProjectApplyStatus' },
         { label: '店铺简介', prop: 'ApplyProjectDesc' },
         { label: '店铺有效期', prop: 'ValidityTimeString' }
       ]
