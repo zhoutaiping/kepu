@@ -32,7 +32,7 @@
             <el-input-number v-model="form.MediaPrcie" controls-position="right" label="" class="input-box input-number" />
           </el-form-item>
           <el-form-item label="Key码数量" prop="KeyCodeCount">
-            <el-input-number v-model="form.KeyCodeCount" controls-position="right" :min="0" label="Key码数量" class="input-box input-number" />
+            <el-input-number v-model="form.KeyCodeCount" :disabled="model !== 'Create'" controls-position="right" :min="0" label="Key码数量" class="input-box input-number" />
           </el-form-item>
           <el-form-item label="排序" prop="Sort">
             <el-input-number v-model="form.Sort" controls-position="right" :min="1" label="排序" class="input-box input-number" />

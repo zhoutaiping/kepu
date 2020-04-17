@@ -78,10 +78,12 @@ export default {
     }
     return {
       loginForm: {
-        username: '18621597888',
-        password: 'Nihaoma007'
+        // username: '18621597888',
+        // password: 'Nihaoma007'
         // username: '15576637112',
         // password: '15576637112'
+        username: '',
+        password: ''
       },
       loginRules: {
         username: [{ required: true, trigger: 'blur', validator: validateUsername }],

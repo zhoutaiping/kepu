@@ -12,6 +12,7 @@
     <DmData
       ref="DmData"
       style="margin:10px 0 0;"
+      :auto-init="false"
       @init="fetchList({hallId:hall_key})"
     >
       <DmTable :loading="loading">
@@ -79,6 +80,12 @@ export default {
   },
   async created() {
     await this.$store.dispatch('system/GetFilterBoxList', this.hall_key)
+    setTimeout(() => {
+      if (this.key_list.length) {
+        this.bindParams.ArticleCategoryId = this.key_list[0].Id || ''
+        this.initPage()
+      }
+    }, 500)
   },
   methods: {
     initPage() {

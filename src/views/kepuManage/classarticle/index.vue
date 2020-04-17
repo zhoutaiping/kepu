@@ -9,13 +9,10 @@
 <template>
   <PageHeader title="班级文章管理">
     <DmToolbar class="mt">
+      <el-select v-model="bindParams.ArticleCategoryId" clearable placeholder="Key码类型" class="input-box" size="small" @change="initPage">
+        <el-option v-for="_ in key_list" :key="_.Id" :label="_.Name" :value="_.Id" />
+      </el-select>
       <a-button type="primary" @click="$refs.addEdit.handleOpen()">添 加</a-button>
-      <a-button type="primary" @click="initPage">刷 新</a-button>
-      <div slot="right">
-        <el-select v-model="bindParams.ArticleCategoryId" clearable placeholder="Key码类型" class="input-box" size="small" @change="initPage">
-          <el-option v-for="_ in key_list" :key="_.Id" :label="_.Name" :value="_.Id" />
-        </el-select>
-      </div>
     </DmToolbar>
     <DmData
       ref="DmData"
