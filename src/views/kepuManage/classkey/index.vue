@@ -25,14 +25,15 @@
             show-overflow-tooltip
           >
             <template slot-scope="scope">
-              <div v-if="item.prop === 'useUserLogo'">
+              <div v-if="item.prop === 'UseUserLogo'">
                 <img
-                  :src="scope.row.useUserLogo"
+                  v-show="scope.row.UseUserLogo"
+                  :src="scope.row.UseUserLogo"
                   height="40"
                   width="40"
                 >
               </div>
-              <span>
+              <span v-else>
                 {{ formartValue(scope.row, item.prop) }}
               </span>
             </template>
@@ -75,7 +76,12 @@ export default {
       await Promise.all([
         this.$store.dispatch('system/GetFilterBoxList', this.hall_key)
       ])
-      this.initPage()
+      setTimeout(() => {
+        if (this.key_list.length) {
+          this.bindParams.ArticleCategoryId = this.key_list[0].Id || ''
+        }
+        this.initPage()
+      }, 500)
     }
   },
   async created() {
@@ -83,8 +89,8 @@ export default {
     setTimeout(() => {
       if (this.key_list.length) {
         this.bindParams.ArticleCategoryId = this.key_list[0].Id || ''
-        this.initPage()
       }
+      this.initPage()
     }, 500)
   },
   methods: {

@@ -67,6 +67,23 @@ const actions = {
         })
     })
   },
+  // UploadMp3
+  UploadMp3({ commit, state, dispatch }, params) {
+    return new Promise(async(resolve, reject) => {
+      const config = {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }
+      Fetch.post('/Aboutapi/UploadMp3', params, config)
+        .then(res => {
+          resolve(res)
+        })
+        .catch(e => {
+          reject(e)
+        })
+    })
+  },
   // 上传图片
   UploadVideo({ commit, state, dispatch }, params) {
     return new Promise(async(resolve, reject) => {

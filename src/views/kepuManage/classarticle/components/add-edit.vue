@@ -120,14 +120,7 @@
                       class="upload-demo"
                     />
                     <div style="float:right;line-height:25px;">
-                      <a-popconfirm
-                        title="是否确认删除?"
-                        ok-text="是"
-                        cancel-text="否"
-                        @confirm="form.ArticleContentList.splice(scope.$index, 1)"
-                      >
-                        <a style="margin:0 20px;"><i class="el-icon-delete" /></a>
-                      </a-popconfirm>
+                      <a style="margin:0 20px;" @click="removeRow(scope.$index)"><i class="el-icon-delete" /></a>
                     </div>
                   </div>
                   <div v-else-if="Number(scope.row.ContentType) === 2">
@@ -162,14 +155,7 @@
                           <el-button slot="trigger" size="mini" icon="el-icon-upload2">选择图片</el-button>
                         </el-upload>
                         <div style="float:right;line-height:25px;">
-                          <a-popconfirm
-                            title="是否确认删除?"
-                            ok-text="是"
-                            cancel-text="否"
-                            @confirm="form.ArticleContentList.splice(scope.$index, 1)"
-                          >
-                            <a style="margin:0 20px;"><i class="el-icon-delete" /></a>
-                          </a-popconfirm>
+                          <a style="margin:0 20px;" @click="removeRow(scope.$index)"><i class="el-icon-delete" /></a>
                         </div>
                       </div>
                     </template>
@@ -209,19 +195,12 @@
                           <el-button slot="trigger" size="mini" icon="el-icon-upload2">选择视频</el-button>
                         </el-upload>
                         <div style="float:right;line-height:25px;">
-                          <a-popconfirm
-                            title="是否确认删除?"
-                            ok-text="是"
-                            cancel-text="否"
-                            @confirm="form.ArticleContentList.splice(scope.$index, 1)"
-                          >
-                            <a style="margin:0 20px;"><i class="el-icon-delete" /></a>
-                          </a-popconfirm>
+                          <a style="margin:0 20px;" @click="form.ArticleContentList.splice(scope.$index, 1)"><i class="el-icon-delete" /></a>
                         </div>
                       </div>
                     </template>
                   </div>
-                  <div v-if="Number(scope.row.ContentType) === 4">
+                  <div v-else-if="Number(scope.row.ContentType) === 4">
                     <el-input
                       v-model="scope.row.Content"
                       type="textarea"
@@ -230,15 +209,48 @@
                       class="upload-demo"
                     />
                     <div style="float:right;line-height:25px;">
-                      <a-popconfirm
-                        title="是否确认删除?"
-                        ok-text="是"
-                        cancel-text="否"
-                        @confirm="form.ArticleContentList.splice(scope.$index, 1)"
-                      >
-                        <a style="margin:0 20px;"><i class="el-icon-delete" /></a>
-                      </a-popconfirm>
+                      <a style="margin:0 20px;" @click="removeRow(scope.$index)"><i class="el-icon-delete" /></a>
                     </div>
+                  </div>
+                  <div v-else-if="Number(scope.row.ContentType) === 5">
+                    <template v-if="scope.row.Content">
+                      <div>
+                        <svg-icon icon-class="shipin" style="width:48;height:48;" />
+                        <span style="width: 500px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; display: inline-block;line-height: 40px;">{{ scope.row.Content }}</span>
+                        <div style="float:right;line-height:48px;">
+                          <a :href="scope.row.Content" download target="_blank"><i class="el-icon-download" /></a>
+                          <a-popconfirm
+                            title="是否确认删除?"
+                            ok-text="是"
+                            cancel-text="否"
+                            @confirm="scope.row.Content = ''"
+                          >
+                            <a style="margin:0 20px;"><i class="el-icon-delete" /></a>
+                          </a-popconfirm>
+                        </div>
+                      </div>
+                    </template>
+                    <template v-else>
+                      <div>
+                        <el-upload
+                          :ref="'movie_upload_'+ scope.$index"
+                          :action="''"
+                          :on-preview="handlePreview"
+                          :on-change="(e) => {
+                            return mp3Upload(e, scope.row)
+                          }"
+                          :file-list="keyList"
+                          :show-file-list="false"
+                          :auto-upload="false"
+                          class="upload-demo"
+                        >
+                          <el-button slot="trigger" size="mini" icon="el-icon-upload2">选择音频</el-button>
+                        </el-upload>
+                        <div style="float:right;line-height:25px;">
+                          <a style="margin:0 20px;" @click="removeRow(scope.$index)"><i class="el-icon-delete" /></a>
+                        </div>
+                      </div>
+                    </template>
                   </div>
                 </template>
               </el-table-column>
@@ -292,6 +304,7 @@ export default {
       ContentType: [
         { label: '添加文章', value: 1 },
         { label: '添加图片', value: 2 },
+        { label: '添加音频', value: 5 },
         { label: '添加短视频', value: 3 },
         { label: '添加长视频', value: 4 }
       ]
@@ -330,7 +343,10 @@ export default {
         Content: ''
       })
     },
-
+    removeRow(index) {
+      const list = JSON.parse(JSON.stringify(this.form.ArticleContentList))
+      this.form.ArticleContentList = list.splice(index, 1)
+    },
     handlePreview(file) {
     },
     async logoUpload(file, fileList) {
@@ -362,6 +378,20 @@ export default {
       params.append('video', file.raw)
       this.tabloading = true
       await this.$store.dispatch('system/UploadVideo', params).then(res => {
+        if (res) {
+          data.Content = res
+          this.Message('ACTION_SUCCESS')
+        }
+        setTimeout(() => {
+          this.tabloading = false
+        }, 500)
+      }).catch(e => { this.tabloading = false })
+    },
+    async mp3Upload(file, data) {
+      const params = new FormData()
+      params.append('video', file.raw)
+      this.tabloading = true
+      await this.$store.dispatch('system/UploadMp3', params).then(res => {
         if (res) {
           data.Content = res
           this.Message('ACTION_SUCCESS')

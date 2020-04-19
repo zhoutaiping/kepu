@@ -132,14 +132,7 @@
                       class="upload-demo"
                     />
                     <div style="float:right;line-height:25px;">
-                      <a-popconfirm
-                        title="是否确认删除?"
-                        ok-text="是"
-                        cancel-text="否"
-                        @confirm="form.ArticleContentList.splice(scope.$index, 1)"
-                      >
-                        <a style="margin:0 20px;"><i class="el-icon-delete" /></a>
-                      </a-popconfirm>
+                      <a style="margin:0 20px;" @click="form.ArticleContentList.splice(scope.$index, 1)"><i class="el-icon-delete" /></a>
                     </div>
                   </div>
                   <div v-else-if="Number(scope.row.ContentType) === 2">
@@ -174,14 +167,7 @@
                           <el-button slot="trigger" size="mini" icon="el-icon-upload2">选择图片</el-button>
                         </el-upload>
                         <div style="float:right;line-height:25px;">
-                          <a-popconfirm
-                            title="是否确认删除?"
-                            ok-text="是"
-                            cancel-text="否"
-                            @confirm="form.ArticleContentList.splice(scope.$index, 1)"
-                          >
-                            <a style="margin:0 20px;"><i class="el-icon-delete" /></a>
-                          </a-popconfirm>
+                          <a style="margin:0 20px;" @click="form.ArticleContentList.splice(scope.$index, 1)"><i class="el-icon-delete" /></a>
                         </div>
                       </div>
                     </template>
@@ -221,14 +207,7 @@
                           <el-button slot="trigger" size="mini" icon="el-icon-upload2">选择视频</el-button>
                         </el-upload>
                         <div style="float:right;line-height:25px;">
-                          <a-popconfirm
-                            title="是否确认删除?"
-                            ok-text="是"
-                            cancel-text="否"
-                            @confirm="form.ArticleContentList.splice(scope.$index, 1)"
-                          >
-                            <a style="margin:0 20px;"><i class="el-icon-delete" /></a>
-                          </a-popconfirm>
+                          <a style="margin:0 20px;" @click="form.ArticleContentList.splice(scope.$index, 1)"><i class="el-icon-delete" /></a>
                         </div>
                       </div>
                     </template>
@@ -242,14 +221,7 @@
                       class="upload-demo"
                     />
                     <div style="float:right;line-height:25px;">
-                      <a-popconfirm
-                        title="是否确认删除?"
-                        ok-text="是"
-                        cancel-text="否"
-                        @confirm="form.ArticleContentList.splice(scope.$index, 1)"
-                      >
-                        <a style="margin:0 20px;"><i class="el-icon-delete" /></a>
-                      </a-popconfirm>
+                      <a style="margin:0 20px;" @click="form.ArticleContentList.splice(scope.$index, 1)"><i class="el-icon-delete" /></a>
                     </div>
                   </div>
                 </template>

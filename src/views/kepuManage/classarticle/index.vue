@@ -100,12 +100,17 @@ export default {
   },
   watch: {
     async hall_key(val) {
-      this.initPage()
       await Promise.all([
         this.$store.dispatch('system/GetFilterBoxList', this.hall_key),
         this.$store.dispatch('system/GetArticleCategoryList', this.hall_key),
         this.$store.dispatch('system/GetArticleLabelList', this.hall_key)
       ])
+      setTimeout(() => {
+        if (this.key_list.length) {
+          this.bindParams.ArticleCategoryId = this.key_list[0].Id || ''
+        }
+        this.initPage()
+      }, 500)
     }
   },
   async created() {
@@ -117,8 +122,8 @@ export default {
     setTimeout(() => {
       if (this.key_list.length) {
         this.bindParams.ArticleCategoryId = this.key_list[0].Id || ''
-        this.initPage()
       }
+      this.initPage()
     }, 500)
   },
   methods: {
