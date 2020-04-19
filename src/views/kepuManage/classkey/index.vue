@@ -61,7 +61,7 @@ export default {
         { label: 'Key码', prop: 'PayKeyCode' },
         { label: '使用人Logo', prop: 'UseUserLogo' },
         { label: '使用者', prop: 'UseUserName' },
-        { label: '使用时间', prop: 'UseTime' }
+        { label: '使用时间', prop: 'UseTimeString' }
       ]
     }
   },
