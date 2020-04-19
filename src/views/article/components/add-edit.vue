@@ -24,7 +24,7 @@
           <el-form-item label="标题" prop="Title">
             <el-input v-model="form.Title" placeholder="请输入标题" class="form-input" />
           </el-form-item>
-          <el-form-item label="会员可见" prop="IsMenberShow">
+          <el-form-item v-show="false" label="会员可见" prop="IsMenberShow">
             <el-switch
               v-model="form.IsMenberShow"
               :active-value="1"

@@ -22,11 +22,10 @@
           <el-input v-model="form.ApplyProjectName" placeholder="" class="form-input" />
         </el-form-item>
         <el-form-item label="店铺Logo" prop="ApplyLogo">
-          <template v-if="form.ApplyLogo">
+          <!-- <template v-if="form.ApplyLogo">
             <div class="form-input">
               <img :src="form.ApplyLogo" width="60" height="60">
               <div style="float:right">
-                <a :href="form.ApplyLogo" download target="_blank"><i class="el-icon-download" /></a>
                 <a-popconfirm
                   title="是否确认删除?"
                   ok-text="是"
@@ -37,8 +36,8 @@
                 </a-popconfirm>
               </div>
             </div>
-          </template>
-          <template v-else>
+          </template> -->
+          <template>
             <div>
               <el-upload
                 ref="upload"
@@ -50,7 +49,18 @@
                 :auto-upload="false"
                 class="upload-demo"
               >
-                <el-button slot="trigger" size="mini" icon="el-icon-upload2">选择图片</el-button>
+                <el-button v-show="form.ApplyLogo === ''" slot="trigger" size="mini" icon="el-icon-upload2">选择图片</el-button>
+                <template v-if="form.ApplyLogo">
+                  <img slot="trigger" :src="form.ApplyLogo" width="60" height="60" class="upload-demo">
+                  <a-popconfirm
+                    title="是否确认删除?"
+                    ok-text="是"
+                    cancel-text="否"
+                    @confirm="form.ApplyLogo = ''"
+                  >
+                    <a style="margin:0 20px;"><i class="el-icon-delete" /></a>
+                  </a-popconfirm>
+                </template>
               </el-upload>
             </div>
           </template>
