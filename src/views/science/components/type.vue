@@ -6,7 +6,7 @@
 <template>
   <div>
     <el-dialog
-      title="添加文章标签"
+      title="添加文章分类"
       :visible.sync="open"
       width="650px"
       :before-close="handleClose"
@@ -19,12 +19,12 @@
       >
         <el-form-item
           label=""
-          prop="LabelName"
+          prop="name"
         >
           <el-input
-            v-model="form.LabelName"
+            v-model="form.name"
             prefix-icon="el-icon-collection-tag"
-            placeholder="标签名称"
+            placeholder="分类名称"
             clearable
             class="form-input"
           />
@@ -32,21 +32,9 @@
         </el-form-item>
         <el-form-item label-width="0">
           <DmTable>
-            <el-table :data="ArticleLabelList">
+            <el-table :data="ArticleCategoryList">
               <el-table-column type="index" label="序号" width="55" />
-              <el-table-column label="标签名称" prop="ArticleLableName" />
-              <el-table-column v-if="false" label="操作" width="100">
-                <template slot-scope="scope">
-                  <a-popconfirm
-                    title="是否确认删除?"
-                    ok-text="是"
-                    cancel-text="否"
-                    @confirm="deleteRow(scope.row)"
-                  >
-                    <a class="success-text">删 除</a>
-                  </a-popconfirm>
-                </template>
-              </el-table-column>
+              <el-table-column label="分类名称" prop="Name" />
             </el-table>
           </DmTable>
         </el-form-item>
@@ -62,18 +50,19 @@ export default {
       open: false,
       submitLoading: false,
       defalut: {
-        LabelType: 1,
-        LabelName: ''
+        description: '',
+        name: ''
       },
       form: {},
       rules: {
-        LabelName: [{ message: '请输入标签名称' }]
+        description: [],
+        name: [{ message: '请输入分类名称' }]
       }
     }
   },
   computed: {
     ...mapGetters([
-      'ArticleLabelList', // 标签
+      'ArticleCategoryList',
       'hall_key'
     ])
   },
@@ -84,28 +73,21 @@ export default {
       this.form = Object.assign({}, JSON.parse(JSON.stringify(this.defalut)))
     },
     handleClose() {
-      this.$store.dispatch('system/GetArticleLabelList')
+      this.$store.dispatch('system/GetArticleCategoryList')
       this.open = false
     },
-    async deleteRow(data) {
-      const params = { id: data.ArticleLableId }
-      if (!params.id) {
-        return
-      } else {
-        await this.Fetch.post('/Systemapi/DeleteArticleLabel', params).then(res => {
-          this.Message('ACTION_SUCCESS')
-          this.$store.dispatch('system/GetArticleLabelList')
-        }).catch(e => {})
-      }
-    },
     handleSubmit() {
-      const params = { hallId: this.hall_key, ...this.form }
+      const params = {
+        hallId: this.hall_key,
+        name: this.name,
+        description: this.name
+      }
       this.$refs.form.validate(async(valid) => {
         if (valid) {
-          await this.Fetch.post('/Systemapi/AddArticleLabel', params).then(res => {
+          await this.Fetch.post('/Systemapi/AddArticleCategory', params).then(res => {
             this.Message('ACTION_SUCCESS')
             this.submitLoading = false
-            this.$store.dispatch('system/GetArticleLabelList')
+            this.$store.dispatch('system/GetArticleCategoryList')
           }).catch(e => {
             this.$refs.form.clearValidate()
             this.submitLoading = false

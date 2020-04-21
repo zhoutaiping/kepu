@@ -52,8 +52,12 @@ module.exports = {
         target: `http://tianshicmsapi.getfitvip.com`,
         changeOrigin: true
       },
+      '^/baseApiTwo': {
+        target: `http://tianshicmsapi.getfitvip.com`,
+        changeOrigin: true
+      },
       '^/java': {
-        target: `http://tianshi.getfitvip.com`,
+        target: `http://tianshicms.getfitvip.com`,
         changeOrigin: true
       }
     }

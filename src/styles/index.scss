@@ -190,8 +190,6 @@ aside {
   z-index: 1000 !important;
 }
 
-
-
 .ant-btn-primary {
   background-color: $color-primary !important;
   border-color: $color-primary !important;
@@ -199,6 +197,10 @@ aside {
 
 .ant-popover {
   z-index: 2500 !important;
+}
+
+.ant-message {
+  z-index: 3000 !important;
 }
 
 .success-text {

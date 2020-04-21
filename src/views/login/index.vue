@@ -1,15 +1,15 @@
 <template>
   <div class="login-container">
-    <div class="Container">
-      <div class="Container-left" />
-      <div class="Container-rigth" />
+    <div class="Container" :style="{}">
+      <!-- <div class="Container-left" />
+      <div class="Container-rigth" /> -->
     </div>
     <div class="login-center">
 
       <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" autocomplete="on" label-position="left">
 
         <div class="title-container">
-          <h1 class="title">Welcome Back</h1>
+          <h1 class="title">科普小天使</h1>
         </div>
 
         <el-form-item prop="username">
@@ -59,6 +59,7 @@
 </template>
 
 <script>
+import LoginIMG from '@/assets/login.png'
 export default {
   name: 'Login',
   data() {
@@ -77,9 +78,14 @@ export default {
       }
     }
     return {
+      LoginIMG,
       loginForm: {
-        username: '18621597888',
-        password: 'Nihaoma007'
+        // username: '18621597888',
+        // password: 'Nihaoma007'
+        // username: '15576637112',
+        // password: '15576637112'
+        username: '',
+        password: ''
       },
       loginRules: {
         username: [{ required: true, trigger: 'blur', validator: validateUsername }],
@@ -225,9 +231,11 @@ $light_gray:#142149;;
 .login-container {
   height: 100vh;
   width: 100%;
-  // background-color: $bg;
   overflow: hidden;
-  background-image: linear-gradient(-45deg,#2179dd,#00289c);
+  // background-image: linear-gradient(-45deg,#2179dd,#00289c);
+  background-image: url('../../assets/login.png');
+  background-size: cover;
+  background-repeat: no-repeat;
   .login_icon {
     width: 100%;
     position: absolute;
@@ -264,7 +272,9 @@ $light_gray:#142149;;
     position: relative;
     width: 480px;
     height: 480px;
-    margin: 250px auto 0;
+    margin: 0 auto;
+    top: 50%;
+    transform: translateY(-50%);
     background-color: white;
     border-radius: 4px;
     box-shadow: 0 4px 32px 0 rgba(10,14,29,.02), 0 8px 64px 0 rgba(10,14,29,.08);

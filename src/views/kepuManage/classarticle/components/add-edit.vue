@@ -24,21 +24,9 @@
           <el-form-item label="标题" prop="Title">
             <el-input v-model="form.Title" placeholder="请输入标题" class="form-input" />
           </el-form-item>
-          <el-form-item v-show="false" label="会员可见" prop="IsMenberShow">
-            <el-switch
-              v-model="form.IsMenberShow"
-              :active-value="1"
-              :inactive-value="0"
-            />
-          </el-form-item>
-          <el-form-item v-show="false" label="文章分类" prop="ArticleCategoryId">
+          <el-form-item label="文章分类" prop="ArticleCategoryId">
             <el-select v-model="form.ArticleCategoryId" placeholder="" class="form-input" @change="(val)=>{return form.Type = val}">
-              <el-option v-for="item in ArticleCategoryList" :key="item.Id" :label="item.Name" :value="item.Id" />
-            </el-select>
-          </el-form-item>
-          <el-form-item v-show="false" label="文章分类" prop="LabelList">
-            <el-select v-model="form.LabelList" multiple placeholder="" class="form-input">
-              <el-option v-for="item in ArticleLabelList" :key="item.ArticleLableId" :label="item.ArticleLableName" :value="item.ArticleLableId" />
+              <el-option v-for="item in key_list" :key="item.Id" :label="item.Name" :value="item.Id" />
             </el-select>
           </el-form-item>
           <el-form-item label="文章Logo" prop="ArticleLogo" class="form-item">
@@ -132,7 +120,7 @@
                       class="upload-demo"
                     />
                     <div style="float:right;line-height:25px;">
-                      <a style="margin:0 20px;" @click="form.ArticleContentList.splice(scope.$index, 1)"><i class="el-icon-delete" /></a>
+                      <a style="margin:0 20px;" @click="removeRow(scope.$index)"><i class="el-icon-delete" /></a>
                     </div>
                   </div>
                   <div v-else-if="Number(scope.row.ContentType) === 2">
@@ -167,7 +155,7 @@
                           <el-button slot="trigger" size="mini" icon="el-icon-upload2">选择图片</el-button>
                         </el-upload>
                         <div style="float:right;line-height:25px;">
-                          <a style="margin:0 20px;" @click="form.ArticleContentList.splice(scope.$index, 1)"><i class="el-icon-delete" /></a>
+                          <a style="margin:0 20px;" @click="removeRow(scope.$index)"><i class="el-icon-delete" /></a>
                         </div>
                       </div>
                     </template>
@@ -212,7 +200,7 @@
                       </div>
                     </template>
                   </div>
-                  <div v-if="Number(scope.row.ContentType) === 4">
+                  <div v-else-if="Number(scope.row.ContentType) === 4">
                     <el-input
                       v-model="scope.row.Content"
                       type="textarea"
@@ -221,8 +209,48 @@
                       class="upload-demo"
                     />
                     <div style="float:right;line-height:25px;">
-                      <a style="margin:0 20px;" @click="form.ArticleContentList.splice(scope.$index, 1)"><i class="el-icon-delete" /></a>
+                      <a style="margin:0 20px;" @click="removeRow(scope.$index)"><i class="el-icon-delete" /></a>
                     </div>
+                  </div>
+                  <div v-else-if="Number(scope.row.ContentType) === 5">
+                    <template v-if="scope.row.Content">
+                      <div>
+                        <svg-icon icon-class="shipin" style="width:48;height:48;" />
+                        <span style="width: 500px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; display: inline-block;line-height: 40px;">{{ scope.row.Content }}</span>
+                        <div style="float:right;line-height:48px;">
+                          <a :href="scope.row.Content" download target="_blank"><i class="el-icon-download" /></a>
+                          <a-popconfirm
+                            title="是否确认删除?"
+                            ok-text="是"
+                            cancel-text="否"
+                            @confirm="scope.row.Content = ''"
+                          >
+                            <a style="margin:0 20px;"><i class="el-icon-delete" /></a>
+                          </a-popconfirm>
+                        </div>
+                      </div>
+                    </template>
+                    <template v-else>
+                      <div>
+                        <el-upload
+                          :ref="'movie_upload_'+ scope.$index"
+                          :action="''"
+                          :on-preview="handlePreview"
+                          :on-change="(e) => {
+                            return mp3Upload(e, scope.row)
+                          }"
+                          :file-list="keyList"
+                          :show-file-list="false"
+                          :auto-upload="false"
+                          class="upload-demo"
+                        >
+                          <el-button slot="trigger" size="mini" icon="el-icon-upload2">选择音频</el-button>
+                        </el-upload>
+                        <div style="float:right;line-height:25px;">
+                          <a style="margin:0 20px;" @click="removeRow(scope.$index)"><i class="el-icon-delete" /></a>
+                        </div>
+                      </div>
+                    </template>
                   </div>
                 </template>
               </el-table-column>
@@ -244,7 +272,7 @@ export default {
       tabloading: false,
       keyList: [],
       movieList: [],
-      API_ADD: '/Articleapi/AddArticle',
+      API_ADD: '/Articleapi/AddArticlePay',
       API_Detail: '/Articleapi/GetArticleDetail',
       API_Update: '/Articleapi/UpdateArticle',
       defalut: {
@@ -276,6 +304,7 @@ export default {
       ContentType: [
         { label: '添加文章', value: 1 },
         { label: '添加图片', value: 2 },
+        { label: '添加音频', value: 5 },
         { label: '添加短视频', value: 3 },
         { label: '添加长视频', value: 4 }
       ]
@@ -283,9 +312,8 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'ArticleLabelList',
-      'ArticleCategoryList',
-      'hall_key'
+      'hall_key',
+      'key_list'
     ])
   },
   methods: {
@@ -298,7 +326,6 @@ export default {
       if (type !== 'Create') {
         this.GetArticleDetail(data)
       } else {
-        this.form.ArticleCategoryId = '2'
         this.form.LabelList = ['22222']
       }
     },
@@ -307,7 +334,6 @@ export default {
         const data = JSON.parse(JSON.stringify(res))
         data.LabelList = data.LabelList.map(i => { return i.ArticleLableId })
         this.form = Object.assign({}, data)
-        this.$set(this.form, 'IsMenberShow', data.IsMenberShow || 0)
       }).catch(e => {})
     },
 
@@ -317,7 +343,10 @@ export default {
         Content: ''
       })
     },
-
+    removeRow(index) {
+      const list = JSON.parse(JSON.stringify(this.form.ArticleContentList))
+      this.form.ArticleContentList = list.splice(index, 1)
+    },
     handlePreview(file) {
     },
     async logoUpload(file, fileList) {
@@ -349,7 +378,20 @@ export default {
       params.append('video', file.raw)
       this.tabloading = true
       await this.$store.dispatch('system/UploadVideo', params).then(res => {
-        console.log(res)
+        if (res) {
+          data.Content = res
+          this.Message('ACTION_SUCCESS')
+        }
+        setTimeout(() => {
+          this.tabloading = false
+        }, 500)
+      }).catch(e => { this.tabloading = false })
+    },
+    async mp3Upload(file, data) {
+      const params = new FormData()
+      params.append('video', file.raw)
+      this.tabloading = true
+      await this.$store.dispatch('system/UploadMp3', params).then(res => {
         if (res) {
           data.Content = res
           this.Message('ACTION_SUCCESS')

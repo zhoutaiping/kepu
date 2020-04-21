@@ -24,7 +24,7 @@
           <el-form-item label="标题" prop="Title">
             <el-input v-model="form.Title" placeholder="请输入标题" class="form-input" />
           </el-form-item>
-          <el-form-item v-show="false" label="会员可见" prop="IsMenberShow">
+          <el-form-item label="会员可见" prop="IsMenberShow">
             <el-switch
               v-model="form.IsMenberShow"
               :active-value="1"
@@ -132,7 +132,14 @@
                       class="upload-demo"
                     />
                     <div style="float:right;line-height:25px;">
-                      <a style="margin:0 20px;" @click="form.ArticleContentList.splice(scope.$index, 1)"><i class="el-icon-delete" /></a>
+                      <a-popconfirm
+                        title="是否确认删除?"
+                        ok-text="是"
+                        cancel-text="否"
+                        @confirm="form.ArticleContentList.splice(scope.$index, 1)"
+                      >
+                        <a style="margin:0 20px;"><i class="el-icon-delete" /></a>
+                      </a-popconfirm>
                     </div>
                   </div>
                   <div v-else-if="Number(scope.row.ContentType) === 2">
@@ -167,7 +174,14 @@
                           <el-button slot="trigger" size="mini" icon="el-icon-upload2">选择图片</el-button>
                         </el-upload>
                         <div style="float:right;line-height:25px;">
-                          <a style="margin:0 20px;" @click="form.ArticleContentList.splice(scope.$index, 1)"><i class="el-icon-delete" /></a>
+                          <a-popconfirm
+                            title="是否确认删除?"
+                            ok-text="是"
+                            cancel-text="否"
+                            @confirm="form.ArticleContentList.splice(scope.$index, 1)"
+                          >
+                            <a style="margin:0 20px;"><i class="el-icon-delete" /></a>
+                          </a-popconfirm>
                         </div>
                       </div>
                     </template>
@@ -207,7 +221,14 @@
                           <el-button slot="trigger" size="mini" icon="el-icon-upload2">选择视频</el-button>
                         </el-upload>
                         <div style="float:right;line-height:25px;">
-                          <a style="margin:0 20px;" @click="form.ArticleContentList.splice(scope.$index, 1)"><i class="el-icon-delete" /></a>
+                          <a-popconfirm
+                            title="是否确认删除?"
+                            ok-text="是"
+                            cancel-text="否"
+                            @confirm="form.ArticleContentList.splice(scope.$index, 1)"
+                          >
+                            <a style="margin:0 20px;"><i class="el-icon-delete" /></a>
+                          </a-popconfirm>
                         </div>
                       </div>
                     </template>
@@ -221,7 +242,14 @@
                       class="upload-demo"
                     />
                     <div style="float:right;line-height:25px;">
-                      <a style="margin:0 20px;" @click="form.ArticleContentList.splice(scope.$index, 1)"><i class="el-icon-delete" /></a>
+                      <a-popconfirm
+                        title="是否确认删除?"
+                        ok-text="是"
+                        cancel-text="否"
+                        @confirm="form.ArticleContentList.splice(scope.$index, 1)"
+                      >
+                        <a style="margin:0 20px;"><i class="el-icon-delete" /></a>
+                      </a-popconfirm>
                     </div>
                   </div>
                 </template>

@@ -25,8 +25,8 @@
               <div v-if="item.prop === 'ArticleLogo'">
                 <img
                   :src="scope.row.ArticleLogo"
-                  height="40"
-                  width="40"
+                  height="60"
+                  width="60"
                 >
               </div>
               <div v-else-if="item.prop === 'Status'">
@@ -94,15 +94,15 @@ export default {
     async hall_key(val) {
       this.initPage()
       await Promise.all([
-        this.$store.dispatch('system/GetArticleCategoryList', this.hall_key),
-        this.$store.dispatch('system/GetArticleLabelList', this.hall_key)
+        this.$store.dispatch('system/GetArticleCategoryList'),
+        this.$store.dispatch('system/GetArticleLabelList')
       ])
     }
   },
   async created() {
     await Promise.all([
-      this.$store.dispatch('system/GetArticleCategoryList', this.hall_key),
-      this.$store.dispatch('system/GetArticleLabelList', this.hall_key)
+      this.$store.dispatch('system/GetArticleCategoryList'),
+      this.$store.dispatch('system/GetArticleLabelList')
     ])
   },
   methods: {

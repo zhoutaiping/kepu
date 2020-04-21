@@ -176,8 +176,10 @@ export default {
         hallId: ''
       },
       form: {},
+      Type: [],
       rules: {
         Name: [{ required: true, message: '请输入商品名称' }],
+        Type: [{ required: true, message: '请选择商品类型' }],
         Rule: [{ required: true, message: '请输入商品规格' }],
         Catty: [],
         MediaPrcie: [{ required: true, message: '请输入售价' }],

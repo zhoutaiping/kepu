@@ -9,7 +9,9 @@
         trigger="click"
         placement="bottom-start"
       >
-        <el-button icon="el-icon-menu">{{ menuText() }} <i class="el-icon-caret-bottom el-icon--right" /></el-button>
+        <div>
+          <el-button icon="el-icon-menu">{{ menuText() }} <i class="el-icon-caret-bottom el-icon--right" /></el-button>
+        </div>
         <el-dropdown-menu v-if="hall_list.length>1" slot="dropdown">
           <el-dropdown-item v-for="(item,index) in hall_list" :key="index" :divided="index!==0">
             <div class="dropdown-item-box" @click="change(item.Id)">{{ item.HallName }}</div>
@@ -28,12 +30,16 @@
           </div>
         </div>
         <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item @click.native="$refs.editPassWord.handleOpen()">
+            <span style="display:block;">修改密码</span>
+          </el-dropdown-item>
           <el-dropdown-item divided @click.native="logout">
             <span style="display:block;">退出</span>
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </div>
+    <EditPassWord ref="editPassWord" />
   </div>
 </template>
 
@@ -41,11 +47,13 @@
 import { mapGetters } from 'vuex'
 import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
+import EditPassWord from './edit-password'
 export default {
   name: 'Navbar',
   components: {
     Breadcrumb,
-    Hamburger
+    Hamburger,
+    EditPassWord
   },
   props: {
     breadcrumb: {
@@ -76,7 +84,9 @@ export default {
       await this.$store.dispatch('user/logout')
       this.$router.push(`/login?redirect=${this.$route.fullPath}`)
     },
+    UpdatePassword() {
 
+    },
     change(id) {
       if (!id) return
       this.$store.dispatch('user/changeHallKey', id)
@@ -134,7 +144,7 @@ export default {
   .right-menu {
     float: right;
     height: 100%;
-    line-height: 50px;
+    line-height: 60px;
 
     &:focus {
       outline: none;

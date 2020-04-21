@@ -126,6 +126,33 @@ export const asyncRoutes = [
     ]
   },
   {
+    path: '/kepuManage',
+    component: BasicLayout,
+    redirect: '/kepuManage/classtype',
+    meta: { title: '科普班级管理', icon: 'tab', noCache: true },
+    children: [
+      {
+        path: '/kepuManage/classtype',
+        component: () => import('@/views/kepuManage/classtype/index'),
+        name: 'kepuManage-classtype',
+        meta: { title: '班级类型管理', icon: 'documentation', noCache: true }
+      },
+      {
+        path: '/kepuManage/classkey',
+        component: () => import('@/views/kepuManage/classkey/index'),
+        name: 'kepuManage-classkey',
+        meta: { title: '班级Key码管理', icon: 'list', noCache: true }
+      },
+      {
+        path: '/kepuManage/classarticle',
+        component: () => import('@/views/kepuManage/classarticle/index'),
+        name: 'kepuManage-classarticle',
+        meta: { title: '班级文章管理', icon: 'education', noCache: true }
+      }
+    ]
+  },
+
+  {
     path: '/statistics',
     component: BasicLayout,
     redirect: '/statistics/article',
@@ -176,7 +203,7 @@ export const admiinRouter = [
   }
 ]
 const createRouter = () => new Router({
-  mode: 'history', // require service support
+  // mode: 'history', // require service support
   scrollBehavior: () => ({ y: 0 }),
   routes: constantRoutes
 })

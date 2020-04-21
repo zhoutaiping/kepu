@@ -4,11 +4,11 @@ import { uuid } from './uuid'
 import store from '@/store'
 import { getToken } from '@/utils/auth'
 const service = axios.create({
-  baseURL: 'http://tianshicmsapi.getfitvip.com/api',
-  timeout: 50000,
+  baseURL: '/baseApiTwo',
+  timeout: 500000,
   headers: {
     'Request-Id': uuid(),
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/xml;charset=UTF-8'
   }
 })
 
@@ -30,18 +30,17 @@ service.interceptors.request.use(
 service.interceptors.response.use(
   response => {
     const { data: body } = response
-    const { Code, Data } = body
+    const { Data } = body
     const message = body.Message
-    if (Code !== 200) {
-      Message.error(message)
+    if (body === '') {
+      Message.error('请求失败')
       return Promise.reject(new Error(message || 'Error'))
     } else {
       return Data || body
     }
   },
   error => {
-    console.log(error)
-    Message.error(error.message)
+    Message.error(error.Message)
     return Promise.reject(error)
   }
 )

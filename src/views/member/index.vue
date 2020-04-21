@@ -60,7 +60,7 @@ export default {
         name: ''
       },
       column: [
-        { label: '头像', prop: 'UserUrl', width: 100 },
+        { label: '头像', prop: 'UserUrl', width: '100' },
         { label: '会员名称', prop: 'UserName' },
         { label: '注册时间', prop: 'CreateTime' }
       ]
