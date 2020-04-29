@@ -163,7 +163,6 @@ export default {
     handleOpen(data) {
       this.$refs.Dialog.handleOpen()
       this.GetArticleDetail(data)
-      console.log(document.getElementsByTagName('aplayer'))
     },
 
     async GetArticleDetail(data) {
