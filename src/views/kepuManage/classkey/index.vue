@@ -61,6 +61,8 @@ export default {
         { label: 'Key码', prop: 'PayKeyCode' },
         { label: '使用人Logo', prop: 'UseUserLogo' },
         { label: '使用者', prop: 'UseUserName' },
+        { label: '手机号', prop: 'CellPhone' },
+        { label: '微信号', prop: 'WXQRCode' },
         { label: '使用时间', prop: 'UseTimeString' }
       ]
     }
