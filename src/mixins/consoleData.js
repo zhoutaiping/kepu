@@ -66,7 +66,7 @@ export default {
         const data = this.formatResponse(response)
         const { list, List } = data
         total = Number(data.total) || Number(data.count) || Number(data.Count) || 0
-        this.list = list || List
+        this.list = list || List || data
         this.responseData = response
       } finally {
         this.loading = false

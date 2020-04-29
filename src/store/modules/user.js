@@ -106,6 +106,7 @@ const actions = {
   changeHallKey({ commit, dispatch }, id) {
     return new Promise(resolve => {
       commit('HALL_KEY', id || '')
+      localStorage.setItem('hall_key', id || '')
       resolve()
     })
   },

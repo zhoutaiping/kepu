@@ -9,7 +9,9 @@
         trigger="click"
         placement="bottom-start"
       >
-        <el-button icon="el-icon-menu">{{ menuText() }} <i class="el-icon-caret-bottom el-icon--right" /></el-button>
+        <div>
+          <el-button icon="el-icon-menu">{{ menuText() }} <i class="el-icon-caret-bottom el-icon--right" /></el-button>
+        </div>
         <el-dropdown-menu v-if="hall_list.length>1" slot="dropdown">
           <el-dropdown-item v-for="(item,index) in hall_list" :key="index" :divided="index!==0">
             <div class="dropdown-item-box" @click="change(item.Id)">{{ item.HallName }}</div>
@@ -142,7 +144,7 @@ export default {
   .right-menu {
     float: right;
     height: 100%;
-    line-height: 50px;
+    line-height: 60px;
 
     &:focus {
       outline: none;

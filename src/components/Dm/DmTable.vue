@@ -22,6 +22,7 @@
         color: #fff !important;
         th {
           background: $color-primary;
+          padding: 5px 0;
         }
       }
     }
@@ -59,7 +60,7 @@
     }
 
     td {
-      padding: 12px 0 !important;
+      padding: 5px 0 !important;
     }
 
     thead {

@@ -1,15 +1,23 @@
 <style scoped>
-
+.input-box {
+  width: 180px;
+}
+.mt {
+  margin-top: 10px;
+}
 </style>
 <template>
-  <PageHeader title="文章管理">
-    <a-button type="primary" style="margin:10px 0 0;" @click="$refs.addEdit.handleOpen()">添 加</a-button>
-    <a-button v-if="false" type="primary" style="margin:10px 0 0;" @click="$refs.tagDialog.handleOpen()">添加文字标签</a-button>
-    <a-button v-if="false" type="primary" style="margin:10px 0 0;" @click="$refs.typeDialog.handleOpen()">添加文字分类</a-button>
-    <a-button type="primary" style="margin:10px 0 0;" @click="initPage">刷 新</a-button>
+  <PageHeader title="班级文章管理">
+    <DmToolbar class="mt">
+      <el-select v-model="bindParams.ArticleCategoryId" clearable placeholder="Key码类型" class="input-box" size="small" @change="initPage">
+        <el-option v-for="_ in key_list" :key="_.Id" :label="_.Name" :value="_.Id" />
+      </el-select>
+      <a-button type="primary" @click="$refs.addEdit.handleOpen()">添 加</a-button>
+    </DmToolbar>
     <DmData
       ref="DmData"
       style="margin:10px 0 0;"
+      :auto-init="false"
       @init="fetchList({hallId:hall_key})"
     >
       <DmTable :loading="loading">
@@ -57,24 +65,23 @@
     </DmData>
     <add-edit ref="addEdit" @success="initPage" />
     <InfoPage ref="infoDialog" />
-    <TagDialog ref="tagDialog" @success="initPage" />
-    <TypeDialog ref="typeDialog" @success="initPage" />
   </PageHeader>
 </template>
 <script>
 import { mapGetters } from 'vuex'
 import consoleData from '@/mixins/consoleData'
-import TagDialog from './components/tag'
-import TypeDialog from './components/type'
 import AddEdit from './components/add-edit'
 import InfoPage from './components/info'
 export default {
-  components: { AddEdit, TagDialog, TypeDialog, InfoPage },
+  components: { AddEdit, InfoPage },
   mixins: [consoleData],
   data() {
     return {
-      API_INDEX: '/articleApi/GetArticlePageList',
+      API_INDEX: '/articleApi/GetArticlePayPages',
       API_METHOD: 'post',
+      bindParams: {
+        ArticleCategoryId: ''
+      },
       column: [
         { label: '文章Logo', prop: 'ArticleLogo' },
         { label: '标题', prop: 'Title', width: 300 },
@@ -87,23 +94,37 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'hall_key'
+      'hall_key',
+      'key_list'
     ])
   },
   watch: {
     async hall_key(val) {
-      this.initPage()
       await Promise.all([
+        this.$store.dispatch('system/GetFilterBoxList', this.hall_key),
         this.$store.dispatch('system/GetArticleCategoryList', this.hall_key),
         this.$store.dispatch('system/GetArticleLabelList', this.hall_key)
       ])
+      setTimeout(() => {
+        if (this.key_list.length) {
+          this.bindParams.ArticleCategoryId = this.key_list[0].Id || ''
+        }
+        this.initPage()
+      }, 500)
     }
   },
   async created() {
     await Promise.all([
+      this.$store.dispatch('system/GetFilterBoxList', this.hall_key),
       this.$store.dispatch('system/GetArticleCategoryList', this.hall_key),
       this.$store.dispatch('system/GetArticleLabelList', this.hall_key)
     ])
+    setTimeout(() => {
+      if (this.key_list.length) {
+        this.bindParams.ArticleCategoryId = this.key_list[0].Id || ''
+      }
+      this.initPage()
+    }, 500)
   },
   methods: {
     initPage() {

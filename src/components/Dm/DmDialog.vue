@@ -41,6 +41,7 @@
     :width="width"
     :modal="modal"
     :append-to-body="appendToBody"
+    :close-on-click-modal="closeOnClickModal"
     aside-type="top"
     @close="onClose"
   >
@@ -93,6 +94,10 @@ export default create({
       default: true
     },
     modal: {
+      type: Boolean,
+      default: true
+    },
+    closeOnClickModal: {
       type: Boolean,
       default: true
     },
