@@ -132,7 +132,7 @@
             </template>
             <template v-if="item.ContentType === 5 && item.Content !== ''">
               <aplayer
-                autoplay
+                :autoplay="false"
                 :music="{
                   title: '科普',
                   artist: '小天使',
