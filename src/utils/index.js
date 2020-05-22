@@ -1,6 +1,7 @@
 /**
  * Created by PanJiaChen on 16/11/18.
  */
+import moment from 'moment'
 
 /**
  * Parse the time to string
@@ -348,4 +349,10 @@ export function removeClass(ele, cls) {
 
 export function isDef(value) {
   return value !== undefined && value !== null
+}
+
+export function is_expire_date() {
+  const newData = moment().format('YYYY-MM-DD HH:mm:ss')
+  const expire_date = moment('2030-05-01 00:00:00').format('YYYY-MM-DD HH:mm:ss')
+  return moment(expire_date).isBefore(newData)
 }

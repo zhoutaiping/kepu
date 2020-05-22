@@ -1,18 +1,16 @@
 <template>
-  <div id="app" :class="[{'opacity-box ': is_expire_date}]">
+  <div id="app" :class="[{'opacity-box ': is_expire}]">
     <router-view />
   </div>
 </template>
 
 <script>
-import moment from 'moment'
+import { is_expire_date } from '@/utils'
 export default {
   name: 'App',
   computed: {
-    is_expire_date() {
-      const newData = moment().format('YYYY-MM-DD HH:mm:ss')
-      const expire_date = moment('2020-05-01 00:00:00').format('YYYY-MM-DD HH:mm:ss')
-      return moment(expire_date).isBefore(newData)
+    is_expire() {
+      return is_expire_date()
     }
   }
 }
