@@ -17,6 +17,7 @@
             <div class="dropdown-item-box" @click="change(item.Id)">{{ item.HallName }}</div>
           </el-dropdown-item>
         </el-dropdown-menu>
+        <el-dropdown-menu v-else />
       </el-dropdown>
     </div>
 
