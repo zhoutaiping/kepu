@@ -3,9 +3,17 @@
   background: #f3f3f3;
   padding: 6px;
 }
+.blur-text {
+  color:#0096fe;
+}
 .bg-text {
-  background-color: #c0c4cc;
+  background-color: #f5f5f5;
   padding: 5px;
+  border-radius: 4px;
+}
+.content-img {
+  margin: 20px 0;
+  max-width: 320px;
 }
 </style>
 <template>
@@ -36,7 +44,7 @@
                 />
               </el-col>
               <el-col :span="21">
-                <h3 class="success-text">{{ _.UserName }}</h3>
+                <h3 class="blur-text">{{ _.UserName }}</h3>
                 <div>
                   {{ _.Content }}
                 </div>
@@ -47,12 +55,24 @@
                       :key="item_index"
                       :span="8"
                     >
+                      <span
+                        v-if="_.CircleContentType === 1"
+                      >
+                        {{ item.ImageUrl }}
+                      </span>
                       <img
+                        v-if="_.CircleContentType === 2"
                         width="115"
                         height="120"
                         :src="item.ImageUrl"
                         style="padding:6px;"
                       >
+                      <video
+                        v-if="_.CircleContentType === 3"
+                        class="content-img"
+                        :src="item.ImageUrl"
+                        controls=""
+                      />
                     </el-col>
                   </el-row>
                 </div>
@@ -67,10 +87,10 @@
                     v-for="(i, i_index) in _.CircleCommentList"
                     :key="i_index"
                   >
-                    <span class="success-text">{{ i.NickName }}：</span>
+                    <span class="blur-text">{{ i.NickName }}：</span>
                     <template v-if="i.RefererNickName">
                       <span>回复 </span>
-                      <span class="success-text">{{ i.RefererNickName }}</span>
+                      <span class="blur-text">{{ i.RefererNickName }}</span>
                     </template>
                     <span>{{ i.Content }}</span>
                   </div>
