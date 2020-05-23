@@ -14,9 +14,28 @@
 .content-img {
   margin: 20px 0;
   max-width: 320px;
+  border-radius: 3px;
 }
 .divider-box {
   margin: 5px 0 !important;
+}
+.el-radio-button__inner {
+  border: 1px solid #DCDFE6;
+}
+.type-box {
+  background-color: #f5f5f5;
+  text-align: center;
+  min-width: 80px;
+  height: 30px;
+  margin: 5px 5px 0px 0;
+  display: inline-block;
+  line-height: 30px;
+  color: #3a3a3a;
+}
+
+.click-bg {
+  background-color: #fff8df;
+  color:#ab7b35;
 }
 </style>
 <template>
@@ -28,15 +47,13 @@
       width="414px"
       class="info-dialog"
     >
-      <div style="mini-height:200px;">
+      <div v-loading="loading" style="mini-height:200px;">
         <div style="margin:0 0 10px;">
-          <span>消息标签：</span>
-          <el-select v-model="CircleLabeId" clearable placeholder="标签" class="input-box" size="small" @change="changeValue">
-            <el-option v-for="_ in CircleLabel" :key="_.Id" :label="_.LabelName" :value="_.Id" />
-          </el-select>
+          <a v-for="_ in CircleLabel" :key="_.Id" href="#" :class="['type-box',{'click-bg': isCheck(_.Id)}]" @click="changeValue(_.Id)"># {{ _.LabelName }}</a>
+          <a href="#" class="type-box" @click="changeValue('')">全 部</a>
         </div>
         <template v-if="List.length" style="min-height:200px">
-          <div v-for="(_, _index) in List" :key="_index" v-loading="loading">
+          <div v-for="(_, _index) in List" :key="_index">
             <el-row>
               <el-col :span="3">
                 <el-avatar
@@ -68,7 +85,7 @@
                         width="115"
                         height="120"
                         :src="item.ImageUrl"
-                        style="padding:6px;"
+                        style="padding:6px;border-radius: 10px;"
                       >
                       <video
                         v-if="_.CircleContentType === 3"
@@ -89,7 +106,7 @@
                   v-if="_.CircleCommentList && _.CircleCommentList.length > 0"
                   class="bg-text"
                 >
-                  <div>
+                  <div v-show="_.CircleLikedList.length > 0">
                     <span
                       v-for="(i, i_index) in _.CircleLikedList"
                       :key="i_index"
@@ -150,6 +167,9 @@ export default {
     ])
   },
   methods: {
+    isCheck(id) {
+      return id === this.CircleLabeId
+    },
     handleOpen(data) {
       this.$refs.Dialog.handleOpen()
       this.List = []
@@ -166,7 +186,8 @@ export default {
       this.ArticleCategoryId = data.ArticleCategoryId
       this.GetCircleAllPages('', data.ArticleCategoryId)
     },
-    changeValue() {
+    changeValue(id) {
+      this.CircleLabeId = id
       this.pagination.page = 1
       this.GetCircleAllPages(this.CircleLabeId, this.ArticleCategoryId)
     },
