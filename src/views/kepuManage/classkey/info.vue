@@ -15,6 +15,9 @@
   margin: 20px 0;
   max-width: 320px;
 }
+.divider-box {
+  margin: 5px 0 !important;
+}
 </style>
 <template>
   <div>
@@ -77,6 +80,9 @@
                   </el-row>
                 </div>
                 <div>
+                  <span v-for="i in _.CircleLabelHistoryList" :key="i.Id" style="margin-right:10px;color:#ab7b35;"># {{ i.LabelName }}</span>
+                </div>
+                <div>
                   {{ _.CreateTimeString }}
                 </div>
                 <div
@@ -89,9 +95,9 @@
                       :key="i_index"
                       class="blur-text"
                     >
-                      #{{ i.NickName }}
+                      {{ i.NickName }}
                     </span>
-                    <el-divider style="margin: 5px 0 !important;" />
+                    <el-divider class="divider-box" />
                   </div>
                   <div
                     v-for="(i, i_index) in _.CircleCommentList"

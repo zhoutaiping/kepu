@@ -123,7 +123,7 @@
             <el-table :data="form.ArticleContentList">
               <el-table-column label="上传内容">
                 <template slot-scope="scope">
-                  <div v-if="Number(scope.row.ContentType) === 1">
+                  <div v-if="Number(scope.row.ContentType) === 1" key="1">
                     <el-input
                       v-model="scope.row.Content"
                       type="textarea"
@@ -132,10 +132,10 @@
                       class="upload-demo"
                     />
                     <div style="float:right;line-height:25px;">
-                      <a style="margin:0 20px;" @click="form.ArticleContentList.splice(scope.$index, 1)"><i class="el-icon-delete" /></a>
+                      <a style="margin:0 20px;" @click="deleteRow(scope.row,scope.$index)"><i class="el-icon-delete" /></a>
                     </div>
                   </div>
-                  <div v-else-if="Number(scope.row.ContentType) === 2">
+                  <div v-else-if="Number(scope.row.ContentType) === 2" key="2">
                     <template v-if="scope.row.Content">
                       <img :src="scope.row.Content" width="48" height="48">
                       <div style="float:right;line-height:48px;">
@@ -172,7 +172,7 @@
                       </div>
                     </template>
                   </div>
-                  <div v-else-if="Number(scope.row.ContentType) === 3">
+                  <div v-else-if="Number(scope.row.ContentType) === 3" key="3">
                     <template v-if="scope.row.Content">
                       <div>
                         <svg-icon icon-class="shipin" style="width:48;height:48;" />
@@ -212,7 +212,7 @@
                       </div>
                     </template>
                   </div>
-                  <div v-if="Number(scope.row.ContentType) === 4">
+                  <div v-if="Number(scope.row.ContentType) === 4" key="4">
                     <el-input
                       v-model="scope.row.Content"
                       type="textarea"
@@ -323,7 +323,17 @@ export default {
         Content: ''
       })
     },
-
+    deleteRow(data, index) {
+      if (data.Content) {
+        this.form.ArticleContentList[index].Content = ''
+      } else {
+        this.tabloading = true
+        this.form.ArticleContentList.splice(index, 1)
+      }
+      setTimeout(() => {
+        this.tabloading = false
+      }, 500)
+    },
     handlePreview(file) {
     },
     async logoUpload(file, fileList) {
