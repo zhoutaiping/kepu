@@ -149,7 +149,7 @@
   </div>
 </template>
 <script>
-import THImg from './th'
+import THImg from '@/views/kepuManage/th'
 import Aplayer from 'vue-aplayer'
 export default {
   components: { THImg, Aplayer },

@@ -42,7 +42,7 @@ npm run preview -- --report
 npm run lint
 
 # 代码格式检查并自动修复
-npm run lint -- --fix## 开发
+npm run lint -- --fix   ## 开发
 
 ```bash
 # 克隆项目

@@ -4,7 +4,8 @@ import FetchImg from '@/utils/fetch_img'
 const state = {
   ArticleLabelList: [],
   ArticleCategoryList: [],
-  key_list: []
+  key_list: [],
+  CircleLabel: []
 }
 const mutations = {
   Article_Label_List: (state, list) => {
@@ -15,6 +16,9 @@ const mutations = {
   },
   key_list: (state, list) => {
     state.key_list = list
+  },
+  CircleLabel: (state, list) => {
+    state.CircleLabel = list
   }
 }
 
@@ -114,7 +118,24 @@ const actions = {
           reject(e)
         })
     })
+  },
+
+  // POST /api/PopularScienceapi/GetCircleLabel
+  GetCircleLabel({ commit, state, dispatch }, ArticleCategoryId) {
+    return new Promise(async(resolve, reject) => {
+      Fetch.post('/PopularScienceapi/GetCircleLabel', {
+        ArticleCategoryId: ArticleCategoryId
+      })
+        .then(res => {
+          commit('CircleLabel', res)
+          resolve(res)
+        })
+        .catch(e => {
+          reject(e)
+        })
+    })
   }
+
 }
 export default {
   namespaced: true,

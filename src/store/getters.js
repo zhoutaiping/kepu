@@ -15,6 +15,7 @@ const getters = {
   errorLogs: state => state.errorLog.logs,
   key_list: state => state.system.key_list,
   ArticleLabelList: state => state.system.ArticleLabelList,
-  ArticleCategoryList: state => state.system.ArticleCategoryList
+  ArticleCategoryList: state => state.system.ArticleCategoryList,
+  CircleLabel: state => state.system.CircleLabel
 }
 export default getters

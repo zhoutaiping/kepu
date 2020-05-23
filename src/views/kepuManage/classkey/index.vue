@@ -33,21 +33,40 @@
                   width="40"
                 >
               </div>
+              <div v-else-if="item.prop ==='IsTeacher'">
+                <span :class="Number(scope.row.IsTeacher) === 1 ?'success-text':'warning-text'">{{ Number(scope.row.IsTeacher) === 1 ? '是' : '否' }}</span>
+              </div>
               <span v-else>
                 {{ formartValue(scope.row, item.prop) }}
               </span>
             </template>
           </el-table-column>
+          <el-table-column label="操作" fixed="right" width="200">
+            <template slot-scope="scope">
+              <template v-if="Number(scope.row.IsTeacher) === 0">
+                <el-button size="mini" type="text" @click="edit(scope.row,1)">设为班主任</el-button>
+                <el-divider direction="vertical" />
+              </template>
+              <template v-if="Number(scope.row.IsTeacher) === 1">
+                <el-button size="mini" type="text" @click="edit(scope.row,2)">取消班主任</el-button>
+                <el-divider direction="vertical" />
+              </template>
+              <el-button size="mini" type="text" @click="$refs.info.handleOpen(scope.row)">查看消息</el-button>
+            </template>
+          </el-table-column>
         </el-table>
       </DmTable>
     </DmData>
+    <InFo ref="info" />
   </PageHeader>
 </template>
 <script>
 import { mapGetters } from 'vuex'
 import consoleData from '@/mixins/consoleData'
 import moment from 'moment'
+import InFo from './info'
 export default {
+  components: { InFo },
   mixins: [consoleData],
   data() {
     return {
@@ -61,6 +80,7 @@ export default {
         { label: 'Key码', prop: 'PayKeyCode' },
         { label: '使用人Logo', prop: 'UseUserLogo' },
         { label: '使用者', prop: 'UseUserName' },
+        { label: '是否为班主任', prop: 'IsTeacher' },
         { label: '手机号', prop: 'CellPhone' },
         { label: '微信号', prop: 'WXQRCode' },
         { label: '使用时间', prop: 'UseTimeString' }
@@ -97,6 +117,7 @@ export default {
   },
   methods: {
     initPage() {
+      this.$store.dispatch('system/GetCircleLabel', this.bindParams.ArticleCategoryId)
       this.$refs.DmData.initPage()
     },
     formartValue(data, prop) {
@@ -113,6 +134,21 @@ export default {
     },
     formartData(time) {
       if (time) return moment(time).format('YYYY-MM-DD HH:mm:ss')
+    },
+    async edit(data, type) {
+      try {
+        if (type === 1) {
+          await this.Fetch.post('/PopularScienceapi/UpClassTeacher', { id: data.Id })
+          this.Message('ACTION_SUCCESS')
+          this.$refs.DmData.initPage()
+        } else if (type === 2) {
+          await this.Fetch.post('/PopularScienceapi/DelClassTeacher', { id: data.Id })
+          this.Message('ACTION_SUCCESS')
+          this.$refs.DmData.initPage()
+        }
+      } catch (error) {
+        return
+      }
     }
   }
 }
