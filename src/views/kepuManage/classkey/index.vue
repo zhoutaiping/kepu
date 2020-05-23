@@ -43,15 +43,15 @@
           </el-table-column>
           <el-table-column label="操作" fixed="right" width="200">
             <template slot-scope="scope">
-              <template v-if="Number(scope.row.IsTeacher) === 0 && scope.row.UseUserId">
+              <template v-if="Number(scope.row.IsTeacher) === 0 && !!scope.row.UseUserId">
                 <el-button size="mini" type="text" @click="edit(scope.row,1)">设为班主任</el-button>
                 <el-divider direction="vertical" />
               </template>
-              <template v-if="Number(scope.row.IsTeacher) === 1 && scope.row.UseUserId">
+              <template v-if="Number(scope.row.IsTeacher) === 1 && !!scope.row.UseUserId">
                 <el-button size="mini" type="text" @click="edit(scope.row,2)">取消班主任</el-button>
                 <el-divider direction="vertical" />
               </template>
-              <el-button size="mini" type="text" @click="$refs.info.handleOpen(scope.row)">查看消息</el-button>
+              <el-button v-if="!!scope.row.UseUserId" size="mini" type="text" @click="$refs.info.handleOpen(scope.row)">查看消息</el-button>
             </template>
           </el-table-column>
         </el-table>

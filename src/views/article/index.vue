@@ -3,10 +3,16 @@
 </style>
 <template>
   <PageHeader title="文章管理">
-    <a-button type="primary" style="margin:10px 0 0;" @click="$refs.addEdit.handleOpen()">添 加</a-button>
-    <a-button v-if="false" type="primary" style="margin:10px 0 0;" @click="$refs.tagDialog.handleOpen()">添加文字标签</a-button>
-    <a-button v-if="false" type="primary" style="margin:10px 0 0;" @click="$refs.typeDialog.handleOpen()">添加文字分类</a-button>
-    <a-button type="primary" style="margin:10px 0 0;" @click="initPage">刷 新</a-button>
+    <a-radio-group v-model="bindParams.ArticleType" :default-value="1" button-style="solid" style="margin:10px 0 0;" @change="$refs.DmData.initPage()">
+      <a-radio-button :value="1">文 章</a-radio-button>
+      <a-radio-button :value="2">公 告</a-radio-button>
+    </a-radio-group>
+    <div style="float:right">
+      <a-button type="primary" style="margin:10px 0 0;" @click="$refs.addEdit.handleOpen()">添 加</a-button>
+      <a-button v-if="false" type="primary" style="margin:10px 0 0;" @click="$refs.tagDialog.handleOpen()">添加文字标签</a-button>
+      <a-button v-if="false" type="primary" style="margin:10px 0 0;" @click="$refs.typeDialog.handleOpen()">添加文字分类</a-button>
+      <a-button type="primary" style="margin:10px 0 0;" @click="initPage">刷 新</a-button>
+    </div>
     <DmData
       ref="DmData"
       style="margin:10px 0 0;"
@@ -55,7 +61,7 @@
         </el-table>
       </DmTable>
     </DmData>
-    <add-edit ref="addEdit" @success="initPage" />
+    <add-edit ref="addEdit" :article-type="bindParams.ArticleType" @success="initPage" />
     <InfoPage ref="infoDialog" />
     <TagDialog ref="tagDialog" @success="initPage" />
     <TypeDialog ref="typeDialog" @success="initPage" />
@@ -75,6 +81,9 @@ export default {
     return {
       API_INDEX: '/articleApi/GetArticlePageList',
       API_METHOD: 'post',
+      bindParams: {
+        ArticleType: 1
+      },
       column: [
         { label: '文章Logo', prop: 'ArticleLogo' },
         { label: '标题', prop: 'Title', width: 300 },

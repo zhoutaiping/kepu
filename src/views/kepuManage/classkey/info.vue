@@ -83,6 +83,16 @@
                   v-if="_.CircleCommentList && _.CircleCommentList.length > 0"
                   class="bg-text"
                 >
+                  <div>
+                    <span
+                      v-for="(i, i_index) in _.CircleLikedList"
+                      :key="i_index"
+                      class="blur-text"
+                    >
+                      #{{ i.NickName }}
+                    </span>
+                    <el-divider style="margin: 5px 0 !important;" />
+                  </div>
                   <div
                     v-for="(i, i_index) in _.CircleCommentList"
                     :key="i_index"
@@ -122,6 +132,7 @@ export default {
       title: '详情',
       ArticleCategoryId: '',
       CircleLabeId: '',
+      UseUserId: '',
       loading: true,
       List: [],
       pagination: {}
@@ -145,6 +156,7 @@ export default {
         }
       )
       this.CircleLabeId = ''
+      this.UseUserId = data.UseUserId
       this.ArticleCategoryId = data.ArticleCategoryId
       this.GetCircleAllPages('', data.ArticleCategoryId)
     },
@@ -157,6 +169,7 @@ export default {
       const params = {
         CircleLabeId: CircleLabeId,
         ArticleCategoryId: ArticleCategoryId,
+        UseUserId: this.UseUserId,
         Pages: this.pagination.page,
         PageSize: this.pagination.per_page
       }

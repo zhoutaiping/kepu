@@ -15,7 +15,7 @@ const service = axios.create({
 // 添加一个请求拦截器
 service.interceptors.request.use(
   config => {
-  // Do something before request is sent
+    // Do something before request is sent
     if (store.getters.token) {
     // let each request carry token
     // ['X-Token'] is a custom headers key

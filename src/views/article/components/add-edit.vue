@@ -236,6 +236,12 @@
 <script>
 import { mapGetters } from 'vuex'
 export default {
+  props: {
+    articleType: {
+      type: [String, Number],
+      default: ''
+    }
+  },
   data() {
     return {
       model: 'Create',
@@ -370,16 +376,17 @@ export default {
 
     fetchSubmit() {
       let api = ''
+      const data = {
+        ...this.form
+      }
       if (this.model === 'Create') {
+        data.ArticleType = this.ArticleType
         api = this.API_ADD
       } else if (this.model === 'Edit') {
         api = this.API_Update
       }
       this.$refs.form.validate(async(valid) => {
         if (valid) {
-          const data = {
-            ...this.form
-          }
           const ArticleContentList = data.ArticleContentList
           ArticleContentList.forEach(i => {
             if (i.ContentType === 4) i.ContentType = 3
