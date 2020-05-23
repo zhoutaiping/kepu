@@ -68,6 +68,10 @@
                     :key="i_index"
                   >
                     <span class="success-text">{{ i.NickName }}：</span>
+                    <template v-if="i.RefererNickName">
+                      <span>回复 </span>
+                      <span class="success-text">{{ i.RefererNickName }}</span>
+                    </template>
                     <span>{{ i.Content }}</span>
                   </div>
                 </div>
