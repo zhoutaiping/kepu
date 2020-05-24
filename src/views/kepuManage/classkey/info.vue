@@ -152,7 +152,7 @@ export default {
   data() {
     return {
       form: {},
-      title: '详情',
+      title: '班级圈',
       ArticleCategoryId: '',
       CircleLabeId: '',
       UseUserId: '',
