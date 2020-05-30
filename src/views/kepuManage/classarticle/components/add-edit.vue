@@ -124,6 +124,19 @@
                       <a style="margin:0 20px;" @click="deleteRow(scope.row,scope.$index)"><i class="el-icon-delete" /></a>
                     </div>
                   </div>
+                  <div v-if="Number(scope.row.ContentType) === 6" key="6">
+                    <el-input
+                      v-model="scope.row.Content"
+                      type="textarea"
+                      :rows="2"
+                      placeholder="链接"
+                      class="upload-demo"
+                    />
+                    <div style="float:right;line-height:25px;">
+                      <!-- <a style="margin:0 20px;" @click="removeRow(scope.$index)"><i class="el-icon-delete" /></a> -->
+                      <a style="margin:0 20px;" @click="deleteRow(scope.row,scope.$index)"><i class="el-icon-delete" /></a>
+                    </div>
+                  </div>
                   <div v-else-if="Number(scope.row.ContentType) === 2" key="2">
                     <template v-if="scope.row.Content">
                       <img :src="scope.row.Content" width="48" height="48">
@@ -307,7 +320,8 @@ export default {
         { label: '添加图片', value: 2 },
         { label: '添加音频', value: 5 },
         { label: '添加短视频', value: 3 },
-        { label: '添加长视频', value: 4 }
+        { label: '添加长视频', value: 4 },
+        { label: '添加链接', value: 6 }
       ]
     }
   },
@@ -334,6 +348,11 @@ export default {
       await this.Fetch.post('/articleApi/GetArticleDetail', { Id: data.Id }).then(res => {
         const data = JSON.parse(JSON.stringify(res))
         data.LabelList = data.LabelList.map(i => { return i.ArticleLableId })
+        data.ArticleContentList.forEach(_ => {
+          if (_.ContentType === 4) {
+            _.ContentType = 6
+          }
+        })
         this.form = Object.assign({}, data)
       }).catch(e => {})
     },
@@ -438,6 +457,7 @@ export default {
           const ArticleContentList = data.ArticleContentList
           ArticleContentList.forEach(i => {
             if (i.ContentType === 4) i.ContentType = 3
+            if (i.ContentType === 6) i.ContentType = 4
           })
           data.ArticleContentList = ArticleContentList
           await this.Fetch.post(api, { ...data, hallId: this.hall_key }).then(res => {

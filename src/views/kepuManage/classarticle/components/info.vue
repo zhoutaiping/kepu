@@ -130,6 +130,17 @@
                 controls=""
               />
             </template>
+            <template v-if="item.ContentType === 4 && item.Content !== ''">
+              <div class="item-box">
+                <THImg />
+                <div class="center tracking-bubble-box">
+                  <div class="bubble-angle" />
+                  <div class="bubble-content">
+                    <a :href="item.Content">{{ item.Content }}</a>
+                  </div>
+                </div>
+              </div>
+            </template>
             <template v-if="item.ContentType === 5 && item.Content !== ''">
               <aplayer
                 :autoplay="false"
