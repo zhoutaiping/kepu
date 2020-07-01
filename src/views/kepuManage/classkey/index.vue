@@ -33,6 +33,14 @@
                   width="40"
                 >
               </div>
+              <div v-else-if="item.prop === 'ReUserLogo'">
+                <img
+                  v-show="scope.row.ReUserLogo"
+                  :src="scope.row.ReUserLogo"
+                  height="40"
+                  width="40"
+                >
+              </div>
               <div v-else-if="item.prop ==='IsTeacher'">
                 <span :class="Number(scope.row.IsTeacher) === 1 ?'success-text':'warning-text'">{{ Number(scope.row.IsTeacher) === 1 ? '是' : '否' }}</span>
               </div>
@@ -80,6 +88,8 @@ export default {
         { label: 'Key码', prop: 'PayKeyCode' },
         { label: '使用人Logo', prop: 'UseUserLogo' },
         { label: '使用者', prop: 'UseUserName' },
+        { label: '推荐人Logo', prop: 'ReUserLogo' },
+        { label: '推荐人', prop: 'ReUserName' },
         { label: '是否为班主任', prop: 'IsTeacher' },
         { label: '手机号', prop: 'CellPhone' },
         { label: '微信号', prop: 'WXQRCode' },
@@ -130,7 +140,7 @@ export default {
           str = data[prop]
           break
       }
-      return str
+      return str || ''
     },
     formartData(time) {
       if (time) return moment(time).format('YYYY-MM-DD HH:mm:ss')

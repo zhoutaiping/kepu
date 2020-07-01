@@ -115,7 +115,7 @@
                 <div class="center tracking-bubble-box">
                   <div class="bubble-angle" />
                   <div class="bubble-content">
-                    {{ form.Title }}
+                    {{ item.Content }}
                   </div>
                 </div>
               </div>
