@@ -66,6 +66,7 @@ export default {
         { label: '媒体售价', prop: 'Price' },
         { label: 'Key码数量', prop: 'KeyCodeCount' },
         { label: '状态', prop: 'IsDelete' },
+        { label: '热门指数', prop: 'IsHot' },
         { label: '排序', prop: 'Sort' }
       ]
     }
