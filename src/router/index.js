@@ -129,7 +129,7 @@ export const asyncRoutes = [
     path: '/kepuManage',
     component: BasicLayout,
     redirect: '/kepuManage/classtype',
-    meta: { title: '科普班级管理', icon: 'tab', noCache: true },
+    meta: { title: '班级管理', icon: 'tab', noCache: true },
     children: [
       {
         path: '/kepuManage/classtype',

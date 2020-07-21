@@ -52,7 +52,7 @@
         </el-tooltip>
 
         <el-button :loading="loading" type="primary" style="width:100%;height:47px; font-size: 17px; font-weight: 500; margin-bottom:30px; background: #007bfc; border-color:#007bfc" @click.native.prevent="handleLogin">登 录</el-button>
-        <div class="help">未注册账号/忘记密码 请联系管理员 >>></div>
+        <!-- <div class="help">未注册账号/忘记密码 请联系管理员 >>></div> -->
       </el-form>
     </div>
   </div>
@@ -271,7 +271,7 @@ $light_gray:#142149;;
   .login-center {
     position: relative;
     width: 480px;
-    height: 480px;
+    height: 400px;
     margin: 0 auto;
     top: 50%;
     transform: translateY(-50%);

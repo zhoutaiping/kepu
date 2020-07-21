@@ -1,5 +1,5 @@
 module.exports = {
-  title: '科普小天使',
+  title: 'Get圈圈',
 
   /**
    * @type {boolean} true | false
